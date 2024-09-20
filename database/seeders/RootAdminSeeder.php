@@ -23,7 +23,7 @@ class RootAdminSeeder extends Seeder
                 'full_name' => 'Root Admin',
                 'email' => 'admin@gmail.com',
                 'tel' => '0987654321',
-                'user_type' => 1,
+                'user_type' => UserTypeEnum::ROOT_ADMIN->value,
                 'password' => Hash::make('root_admin_5555'),
             ]
         );

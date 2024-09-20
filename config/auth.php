@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'guard' =>  'admin',
+        'passwords' => 'users',
     ],
 
     /*
@@ -36,7 +36,15 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        // 'web' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'user' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -61,6 +69,11 @@ return [
 
     'providers' => [
         'users' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        
+        'admins' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
@@ -111,5 +124,8 @@ return [
     */
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
-
+    'remember' => [
+        'cookie_name' => 'remember_web',
+        'expires' => 43200,
+    ],
 ];

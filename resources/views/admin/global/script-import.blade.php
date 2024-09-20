@@ -27,3 +27,5 @@
 <script src="{{ asset('libraries/rica/dashboard/customizer.js') }}"></script>
 <!-- Theme js-->
 <script src="{{ asset('libraries/rica/dashboard/script.js') }}"></script>
+{{-- Main js --}}
+<script src="{{ asset('js/admin/main.js') }}"></script>

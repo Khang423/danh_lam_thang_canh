@@ -118,9 +118,7 @@
                          <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
                          <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
                          <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
-                         <li><a data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="javascript:void(0)"><i
-                                     data-feather="log-out"> </i><span>Log
-                                     out</span></a></li>
+                         <li><a href="{{ route('admin.logout') }}"><span>Log out</span></a></li>
 
                      </ul>
                  </li>

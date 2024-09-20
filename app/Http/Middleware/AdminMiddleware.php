@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckLoginAdminMiddleware
+class AdminMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
@@ -17,9 +17,9 @@ class CheckLoginAdminMiddleware
             UserTypeEnum::MEMBER_ADMIN->value,
         ];
         if (Auth::check() && in_array(Auth::user()->user_type, $allowUser )) {
-            return redirect()->route('admin.dashboard');
+            return $next($request);
         }
 
-        return response()->view('admin.login');
+        return redirect()->route('admin.loginView');
     }
 }
