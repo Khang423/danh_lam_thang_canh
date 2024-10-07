@@ -62,9 +62,9 @@
                     </li>
 
                     <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav" href="booking.html">
-                            <i class="fa-regular fa-bookmark"></i>
-                            <span>Booking</span>
+                        <a class="sidebar-link sidebar-title link-nav" href="{{ route('admin.map') }}">
+                            <i class="fa-regular fa-map"></i>
+                            <span>Map</span>
                         </a>
                     </li>
                     <li class="sidebar-list">

@@ -10,7 +10,7 @@
 </head>
  
 <body>
-    @include('admin.global.preloader')
+    {{-- @include('admin.global.preloader') --}}
     <div class="tap-top"><i data-feather="chevrons-up"></i></div>
     <div class="page-wrapper compact-wrapper modern-type" id="pageWrapper">
         @include('admin.global.header')

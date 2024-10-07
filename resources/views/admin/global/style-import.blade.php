@@ -20,3 +20,4 @@
 <link rel="stylesheet" href="{{ asset('libraries/rica/dashboard/style.css') }}">
 <!-- Responsive css-->
 <link rel="stylesheet" href="{{ asset('libraries/rica/dashboard/responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/main.css') }}">
