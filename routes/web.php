@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\MapController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
 Route::get('/admin/login', [AdminAuthController::class, 'index']) 
