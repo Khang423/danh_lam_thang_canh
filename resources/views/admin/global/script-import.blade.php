@@ -1,31 +1,33 @@
-{{-- Jquery --}}
-<script src="{{ asset('libraries/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap js-->
-<script src="{{ asset('libraries/bootstrap/bootstrap.bundle.min.js') }}"></script>
-<!-- feather icon js-->
-<script src="{{ asset('libraries/feather_icon/feather.min.js') }}"></script>
-<!-- scrollbar js-->
-<script src="{{ asset('libraries/scrollbar/simplebar.js') }}"></script>
-<script src="{{ asset('libraries/scrollbar/custom.js') }}"></script>
-<!-- Sidebar jquery-->
-<script src="{{ asset('libraries/rica/dashboard/config.js') }}"></script>
-<!-- tooltip init js -->
-<script src="{{ asset('libraries/rica/dashboard/tooltip-init.js') }}"></script>
-<!-- slick js  -->
-<script src="{{ asset('libraries/slick_slider/slick.js') }}"></script>
-<!-- Plugins JS -->
-<script src="{{ asset('libraries/rica/plugin/sidebar-menu.js') }}"></script>
-<script src="{{ asset('libraries/bootstrap/bootstrap-notify.min.js') }}"></script>
-<script src="{{ asset('libraries/rica/plugin/index.js') }}"></script>
-{{-- Datepicker --}}
-<script src="{{ asset('libraries/date_picker/datepicker.js') }}"></script>
-<script src="{{ asset('libraries/date_picker/datepicker.en.js') }}"></script>
-<script src="{{ asset('libraries/date_picker/datepicker.custom.js') }}"></script>
-{{-- Ratio --}}
-<script src="{{ asset('libraries/ratio/ratio.js') }}"></script>
-<!-- customizer js start  -->
-<script src="{{ asset('libraries/rica/dashboard/customizer.js') }}"></script>
-<!-- Theme js-->
-<script src="{{ asset('libraries/rica/dashboard/script.js') }}"></script>
-{{-- Main js --}}
-<script src="{{ asset('js/admin/main.js') }}"></script>
+<!-- Jquery -->
+<script src="{{ env('APP_URL') }}/libraries/jquery/jquery.min.js?version={{ config('cache.js_version') }}"></script>
+<!-- Admin Hyper App -->
+<script src="{{ env('APP_URL') }}/libraries/hyper/vendor.min.js?version={{ config('cache.js_version') }}"></script>
+<script
+    src="{{ env('APP_URL') }}/vendor/jquery-toast-plugin/jquery.toast.min.js?version={{ config('cache.js_version') }}">
+</script>
+<script src="{{ env('APP_URL') }}/libraries/hyper/hyper-syntax.js?version={{ config('cache.js_version') }}"></script>
+<script src="{{ env('APP_URL') }}/libraries/select2/select2.min.js?version={{ config('cache.js_version') }}"></script>
+<script src="{{ env('APP_URL') }}/libraries/hyper/app.min.js?version={{ config('cache.js_version') }}"></script>
+<!-- Datatables -->
+<script
+    src="{{ env('APP_URL') }}/vendor/datatables.net/js/jquery.dataTables.min.js?version={{ config('cache.js_version') }}">
+</script>
+<script
+    src="{{ env('APP_URL') }}/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js?version={{ config('cache.js_version') }}">
+</script>
+<script
+    src="{{ env('APP_URL') }}/vendor/datatables.net-responsive/js/dataTables.responsive.min.js?version={{ config('cache.js_version') }}">
+</script>
+<script
+    src="{{ env('APP_URL') }}/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js?version={{ config('cache.js_version') }}">
+</script>
+<!-- Import CKEditor -->
+<script src="{{ env('APP_URL') }}/libraries/ckeditor/ckeditor.js?version={{ config('cache.js_version') }}"></script>
+<!-- Custom -->
+<script src="{{ env('APP_URL') }}/js/admin/config.js?version={{ config('cache.js_version') }}"></script>
+{{-- chart --}}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>

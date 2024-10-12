@@ -1,5 +1,9 @@
-  <!-- pre-loader start -->
-  <div class="loader-wrapper">
-    <img src="{{ asset('assets/systems/loader.gif') }}" alt="loader gif">
+<div id="preloader">
+    <div id="status">
+        <div class="bouncing-loader">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
 </div>
-<!-- pre-loader End -->

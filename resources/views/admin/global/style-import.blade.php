@@ -1,23 +1,19 @@
-{{-- Font Asowme --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<!-- Themify icon-->
-<link rel="stylesheet" href="{{ asset('libraries/rica/dashboard/themify.css') }}">
-<!-- ratio start -->
-<link rel="stylesheet" href="{{ asset('libraries/ratio/ratio.css') }}">
-<!-- Feather icon-->
-<link rel="stylesheet" href="{{ asset('libraries/feather_icon/feather-icon.css') }}">
-<!-- Plugins css start-->
-<link rel="stylesheet" href="{{ asset('libraries/scrollbar/scrollbar.css') }}">
-<link rel="stylesheet" href="{{ asset('libraries/animate/animate.css') }}">
-<!-- datepicker -->
-<link rel="stylesheet" href="{{ asset('libraries/date_picker/date-picker.css') }}">
-<!-- Bootstrap css-->
-<link rel="stylesheet" href="{{ asset('libraries/bootstrap/bootstrap.css') }}">
-<!-- slick slider-->
-<link rel="stylesheet" href="{{ asset('libraries/slick_slider/slick.css') }}">
-<link rel="stylesheet" href="{{ asset('libraries/slick_slider/slick-theme.css') }}">
-<!-- App css-->
-<link rel="stylesheet" href="{{ asset('libraries/rica/dashboard/style.css') }}">
-<!-- Responsive css-->
-<link rel="stylesheet" href="{{ asset('libraries/rica/dashboard/responsive.css') }}">
-<link rel="stylesheet" href="{{ asset('css/admin/main.css') }}">
+<!-- Jquery Toast -->
+<link rel="stylesheet" href="{{env('APP_URL')}}/vendor/jquery-toast-plugin/jquery.toast.min.css?version={{config('cache.css_version')}}">
+<!-- Datatable -->
+<link rel="stylesheet" href="{{env('APP_URL')}}/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css?version={{config('cache.css_version')}}">
+<link rel="stylesheet" href="{{env('APP_URL')}}/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css?version={{config('cache.css_version')}}">
+<!-- Select2 -->
+<link rel="stylesheet" href="{{env('APP_URL')}}/libraries/select2/select2.min.css?version={{config('cache.css_version')}}">
+<!-- Theme Config Js -->
+<script src="{{env('APP_URL')}}/libraries/hyper/hyper-config.js?version={{config('cache.js_version')}}"></script>
+<!-- Theme style -->
+<link rel="stylesheet" href="{{env('APP_URL')}}/libraries/hyper/app-saas.min.css?version={{config('cache.css_version')}}" id="app-style">
+<!-- Theme icon style -->
+<link rel="stylesheet" href="{{env('APP_URL')}}/libraries/hyper/icons.min.css?version={{config('cache.css_version')}}">
+<!-- Fontawesome -->
+<link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css?version={{config('cache.css_version')}}" rel="stylesheet" />
+<!-- ChartJS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Custom -->
+<link rel="stylesheet" href="{{env('APP_URL')}}/css/admin/main.css?version={{config('cache.css_version')}}">

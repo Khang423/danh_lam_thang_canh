@@ -19,7 +19,7 @@ class MapController extends Controller
         return view('admin.map');
     }
 
-    public function getData()
+    public function getAllLocation()
     {
         $location = TouristAttraction::all()->toArray();
         return response()->json($location);
@@ -28,5 +28,7 @@ class MapController extends Controller
     public function store(Request $request)
     {
         $this->mapService->store($request);
+        
+        return true;
     }
 }

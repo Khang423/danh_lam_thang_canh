@@ -2,86 +2,75 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/">
+    <meta charset="utf-8" />
+    <title>Đăng nhập | Hytertech</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
-    <meta name="keywords"
-        content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="pixelstrap">
-    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <title>Rica- login</title>
-    <!-- Google font-->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    @include('admin.global.style-import')
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{{ asset('assets/systems/short-cut.ico') }}">
+
+    <script src="{{ asset('libraries/hyper/hyper-config.js') }}"></script>
+    <link href="{{ asset('libraries/hyper/app-saas.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
+    <link href="{{ asset('libraries/hyper/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/admin/main.css') }}" rel="stylesheet" type="text/css" />
 </head>
 
-<body>
-    <!-- login page start-->
-    <div class="container-fluid p-0">
-        <div class="row m-0">
-            <div class="col-12 p-0">
-                <div class="login-card">
-                    <div>
-                        <div>
-                            <a class="logo" href="index.html">
-                                <img class="img-fluid for-light"src="{{ asset('assets/systems/logo-icon.png') }}"
-                                    alt="looginpage">
-                                <img class="img-fluid for-dark" src="{{ asset('assets/systems/logo-icon.png') }}"
-                                    alt="looginpage">
-                            </a>
+<body class="authentication-bg pb-0">
+    <div class="auth-fluid">
+        <div class="auth-fluid-form-box">
+            <div class="card-body d-flex flex-column h-100 gap-3">
+                <div class="auth-brand text-center text-lg-start">
+                    <a href="{{ env('/') }}" class="logo-dark">
+                        <span><img src="{{ asset('assets/systems/logo-light.png') }}" alt="dark logo" height="60"></span>
+                    </a>
+                    <a href="{{ env('/') }}" class="logo-light">
+                        <span><img src="{{ asset('assets/systems/logo-dark.png') }}" alt="logo" height="60"></span>
+                    </a>
+                </div>
+
+                <div class="my-auto">
+                    <h4 class="mt-0">Đăng nhập</h4>
+                    <p class="text-muted mb-4">Nhập vào Email / Số điện thoại và mật khẩu để đăng nhập</p>
+                    <form action="{{ route('admin.login') }}" method="post" id="form-login">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="user_identifier" class="form-label">Email / Số điện thoại</label>
+                            <input class="form-control" type="text" id="emailaddress" required name="user_identifier"
+                                placeholder="Nhập vào Email / Số điện thoại của bạn">
                         </div>
-                        <div class="login-main">
-                            <form class="theme-form" action="{{ route('admin.login') }}" method="post">
-                                @csrf 
-                                <h4>Đăng Nhập Hệ Thống Du Lịch</h4>
-                                <p>Nhập thông tin tài khoản để đăng nhập</p>
-                                <div class="form-group">
-                                    <label class="col-form-label form-label-title ">Tên đăng nhập</label>
-                                    <input class="form-control"  name="user_identifier" required=""
-                                        placeholder="Test@gmail.com">
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label form-label-title ">Mật khẩu</label>
-                                    <div class="form-input position-relative">
-                                        <input class="form-control" type="password" name="password" required=""
-                                            placeholder="*********">
-                                        <div class="show-hide">
-                                            <span class="show"> </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-0">
-                                    <div class="checkbox p-0">
-                                        <input id="remember" type="checkbox" name="remember_me" value="on">
-                                        <label class="text-muted" for="remember" > Ghi nhớ đăng nhập</label>
-                                        <div class="text-end mt-3">
-                                            <button class="btn btn-primary btn-block w-100" type="submit"
-                                                id="login-submit">
-                                                Đăng Nhập
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input class="form-control" type="password" required name="password" id="password"
+                                placeholder="Nhập vào mật khẩu của bạn">
                         </div>
-                    </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="remember" name="remember_me" value="on">
+                                <label class="form-check-label" for="remember">Ghi nhớ tôi</label>
+                            </div>
+                        </div>
+                        <div class="d-grid mb-0 text-center">
+                            <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Đăng nhập</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+        <div class="auth-fluid-right text-center">
+            <div class="auth-user-testimonial">
+                <h2 class="mb-3">Hệ thống giàn rau thủy canh thông minh</h2>
+                <p class="lead"><i class="mdi mdi-format-quote-open"></i> Sản phẩm rau sạch và an toàn cho sức khỏe!
+                    <i class="mdi mdi-format-quote-close"></i>
+                </p>
+                <p>
+                    - Trang quản trị -
+                </p>
+        </div>
     </div>
+    <!-- Vendor js -->
+    <script src="{{ asset('libraries/hyper/vendor.min.js') }}"></script>
+    <!-- App js -->
+    <script src="{{ asset('libraries/hyper/app.min.js') }}"></script>
 </body>
-<script src="{{ asset('libraries/jquery/jquery.min.js') }}"></script>
-<script>
-    $('document').ready(function() {
-        $('#login-submit').click(function() {
-
-        });
-    });
-</script>
 
 </html>

@@ -1,32 +1,36 @@
 @extends('admin.main')
 @section('content')
-    <section class="section-map">
-        <div class="row">
-            <div id="map">
-            </div>
-        </div>
-        <div class="form-group d-none" id="show-info">
-            <form id="form-info">
-                @csrf
-                <h2> Thông tin</h2>
-                <div class="content-model">
-                    <label for="">Kinh Độ</label>
-                    <input type="text" name="longtitude" id="lng" class="form-control">
-                    <label for="">Vĩ Độ</label>
-                    <input type="text" name="latitude" id="lat" class="form-control">
-                    <label for="">Địa chỉ</label>
-                    <br>
-                    <textarea name="address" id="address" rows="4"></textarea>
+    <div class="content">
+        <div class="container-fluid"">
+            <section class="section-map">
+                <div class="row">
+                    <div id="map">
+                    </div>
                 </div>
-                <div class="footer-model">
-                    <button class="btn-primary" type="button" id="model-close">Đóng</button>
-                    <button class="btn btn-success" type="button" id="btn-submit">Thêm</button>
+                <div class="form-group d-none" id="show-info">
+                    <form id="form-info">
+                        @csrf
+                        <h2> Thông tin</h2>
+                        <div class="content-model">
+                            <label for="">Kinh Độ</label>
+                            <input type="text" name="longtitude" id="lng" class="form-control">
+                            <label for="">Vĩ Độ</label>
+                            <input type="text" name="latitude" id="lat" class="form-control">
+                            <label for="">Địa chỉ</label>
+                            <br>
+                            <textarea name="address" id="address" rows="4"></textarea>
+                        </div>
+                        <div class="footer-model">
+                            <button class="btn btn-danger" type="button" id="model-close">Đóng</button>
+                            <button class="btn btn-success" type="button" id="btn-submit">Thêm</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </section>
         </div>
-    </section>
+    </div>
 @endsection
-@section('scripts')
+@section('script')
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
     <script>
@@ -118,18 +122,9 @@
                     console.error("Lỗi khi gọi API:", error);
                 });
         });
-        // event close model
-        $('#model-close').click(() => {
-            $('#show-info').addClass('d-none');
-            const markers = document.querySelectorAll('.mapboxgl-marker');
-            new mapboxgl.Marker()
-                .setLngLat([coordinates.lng, coordinates.lat])
-                .addTo(map);
-        });
-
+        // hadle event insert data to database
         $('#btn-submit').click((e) => {
             let formData = new FormData($('#form-info')[0]);
-            e.preven
             $.ajax({
                 type: 'POST',
                 url: `{{ route('admin.map.store') }}`,
@@ -145,50 +140,56 @@
                 },
             })
         });
-
-        $.ajax({
-            type: 'GET',
-            url: `{{ route('admin.map.getData') }}`,
-            success: (response) => {
-                console.log(response); // Kiểm tra dữ liệu trả về từ server
-                let locations = response;
-
-                // Kiểm tra nếu locations là mảng
-                if (Array.isArray(locations)) {
-                    locations.forEach((item) => {
-                        console.log('item:', item)
-                        let marker = new mapboxgl.Marker()
-                            .setLngLat([item.longtitude, item.latitude])
-                            .addTo(map);
-                        let popup = new mapboxgl.Popup({
+        // show location from database
+        const showLocation = (() => {
+            $.ajax({
+                type: 'GET',
+                url: `{{ route('admin.map.getAllLocation') }}`,
+                success: (response) => {
+                    let locations = response;
+                    // Kiểm tra nếu locations là mảng
+                    if (Array.isArray(locations)) {
+                        locations.forEach((item) => {
+                            console.log('item:', item)
+                            let marker = new mapboxgl.Marker()
+                                .setLngLat([item.longtitude, item.latitude])
+                                .addTo(map);
+                            let popup = new mapboxgl.Popup({
                                 offset: 25
-                            })
-                            .setHTML(
-                                `<h3>Thông tin</h3><p>${item.address}</p>`);
-
-                        // Hiển thị popup khi di chuột vào marker
-                        marker.getElement().addEventListener('mouseenter', () => {
-                            popup.addTo(map); // Thêm popup vào bản đồ
-                            currentPopup = popup; // Ghi nhớ popup hiện tại
+                            });
+                            // Hiển thị popup khi di chuột vào marker
+                            marker.getElement().addEventListener('mouseenter', () => {
+                                popup.addTo(map); // Thêm popup vào bản đồ
+                                currentPopup = popup; // Ghi nhớ popup hiện tại
+                                lat.value = item.longtitude;
+                                lng.value = item.latitude;
+                                address.value = item.address;
+                                $('#show-info').removeClass('d-none');  
+                            });
+                            marker.getElement().addEventListener('mouseleave', () => {
+                                if (currentPopup === popup) {
+                                    popup.remove(); // Xóa popup khỏi bản đồ
+                                    currentPopup = null; // Đặt lại biến hiện tại
+                                }
+                            });
+                            marker.setPopup(popup);
                         });
+                    } else {
+                        console.error("Dữ liệu trả về không phải là mảng", locations);
+                    }
+                },
+                error: (xhr, status, error) => {
+                    console.error("Lỗi khi lấy dữ liệu:", error);
+                },
+            });
+        });
+        showLocation();
 
-                        // Ẩn popup khi chuột rời khỏi marker
-                        marker.getElement().addEventListener('mouseleave', () => {
-                            // Ẩn popup chỉ nếu nó không phải là popup hiện tại
-                            if (currentPopup === popup) {
-                                popup.remove(); // Xóa popup khỏi bản đồ
-                                currentPopup = null; // Đặt lại biến hiện tại
-                            }
-                        });
-                        marker.setPopup(popup);
-                    });
-                } else {
-                    console.error("Dữ liệu trả về không phải là mảng", locations);
-                }
-            },
-            error: (xhr, status, error) => {
-                console.error("Lỗi khi lấy dữ liệu:", error);
-            },
-        })
+        $('#model-close').click(() => {
+            $('#show-info').addClass('d-none');
+            const markers = document.querySelectorAll('.mapboxgl-marker');
+            markers.forEach(marker => marker.remove());
+            showLocation();
+        });
     </script>
 @endsection
