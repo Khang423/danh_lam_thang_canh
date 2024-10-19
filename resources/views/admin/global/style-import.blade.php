@@ -17,3 +17,5 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Custom -->
 <link rel="stylesheet" href="{{env('APP_URL')}}/css/admin/main.css?version={{config('cache.css_version')}}">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />

@@ -8,24 +8,27 @@
                     </div>
                 </div>
                 <div class="form-group d-none" id="show-info">
-                    <form id="form-info">
-                        @csrf
-                        <h2> Thông tin</h2>
-                        <div class="content-model">
-                            <label for="">Kinh Độ</label>
-                            <input type="text" name="longtitude" id="lng" class="form-control">
-                            <label for="">Vĩ Độ</label>
-                            <input type="text" name="latitude" id="lat" class="form-control">
-                            <label for="">Địa chỉ</label>
-                            <br>
-                            <textarea name="address" id="address" rows="4"></textarea>
+                    <div class="card-body py-0" data-simplebar style="max-height: 600px;">
+                        <div class="image_location">
+                            <img src="https://lh5.googleusercontent.com/p/AF1QipMQ305ZrmO2Gl3-uu64u0awwGBw6my0vFyoPd5a=w408-h306-k-no"
+                                alt="">
                         </div>
-                        <div class="footer-model">
-                            <button class="btn btn-danger" type="button" id="model-close">Đóng</button>
-                            <button class="btn btn-success" type="button" id="btn-submit">Thêm</button>
+                        <div class="content">
+                            <div class="location_name">
+                                <h2> Chua Ho Quoc</h2>
+                            </div>
+                            <div class="location_address">
+                                <i class="uil-map-marker"></i> 91100, Vĩnh Hiệp, Rạch Giá, Kiên Giang, Vietnam
+                            </div>
+                            <div class="geographic_coordinates">
+                                <i class="uil-globe"></i> 105.117484 , 9.960230
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
+                <div class="search-bar">
+                    <input type="text">
+                </div>  
             </section>
         </div>
     </div>
@@ -33,12 +36,17 @@
 @section('script')
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"></script>
+    <!-- plugin js -->
+    <script src="assets/vendor/dropzone/min/dropzone.min.js"></script>
+    <!-- init js -->
+    <script src="assets/js/ui/component.fileupload.js"></script>
     <script>
         mapboxgl.accessToken =
             'pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ';
         const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v9',
+            style: 'mapbox://styles/mapbox/streets-v11',
             projection: 'globe',
             zoom: 11,
             center: [105.0690104, 9.9904685]
@@ -91,7 +99,11 @@
         const lng = document.getElementById("lng");
         const address = document.getElementById("address");
         // even click to map
-        map.on('click', (event) => {
+        map.on('click', () => {
+            $('#show-info').addClass('d-none');
+            $('.section-map').find('#form-insert').addClass('d-none');
+        });
+        map.on('dblclick', (event) => {
             const coordinates = event.lngLat;
             const longitude = coordinates.lng;
             const latitude = coordinates.lat;
@@ -104,6 +116,7 @@
                 .addTo(map);
 
             $('#show-info').removeClass('d-none');
+            g
             lat.value = latitude.toFixed(6);
             lng.value = longitude.toFixed(6);
             fetch(
@@ -164,7 +177,7 @@
                                 lat.value = item.longtitude;
                                 lng.value = item.latitude;
                                 address.value = item.address;
-                                $('#show-info').removeClass('d-none');  
+                                $('#show-info').removeClass('d-none');
                             });
                             marker.getElement().addEventListener('mouseleave', () => {
                                 if (currentPopup === popup) {
@@ -191,5 +204,16 @@
             markers.forEach(marker => marker.remove());
             showLocation();
         });
+
+        // click button add data
+        $('.btn-plus').on('click', () => {
+            $('.section-map').find('#form-insert').removeClass('d-none');
+            
+        });
+
+        $('#btn-close').on('click', () => {
+            $('.section-map').find('#form-insert').addClass('d-none');
+        });
+        // map in form insert
     </script>
 @endsection

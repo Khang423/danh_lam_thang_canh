@@ -2,10 +2,10 @@
     <!-- Brand Logo Light -->
     <a href="{{ env('APP_URL') }}" class="logo logo-light">
         <span class="logo-lg">
-            <img src="{{ asset('assets/systems/logo-white.png') }}" alt="Hytertech" style="height: 28px">
+            <img src="https://coderthemes.com/hyper/saas/assets/images/logo.png" alt="Hytertech" style="height: 28px">
         </span>
         <span class="logo-sm">
-            <img src="{{ asset('assets/systems/logo-white.png') }}" alt="Hytertech" style="height:30px;width:30px">
+            <img src="https://coderthemes.com/hyper/saas/assets/images/logo-sm.png" alt="Hytertech" style="height:30px;width:30px">
         </span>
     </a>
     <!-- Sidebar Hover Menu Toggle Button -->
@@ -44,7 +44,7 @@
             <li class="side-nav-item">
                 <a href="{{ route('admin.list-location')}}" class="side-nav-link">
                     <i class="fal fa-sensor"></i>
-                    <span> Điểm du lịch  </span>
+                    <span> Danh Sách Địa Điểm  </span>
                 </a>
             </li>
         </ul>

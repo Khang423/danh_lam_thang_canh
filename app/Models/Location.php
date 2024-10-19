@@ -6,16 +6,17 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TouristAttraction extends Model
+class Location extends Model
 {
     use HasFactory;
 
-    protected $table = 'tourist_attractions';
+    protected $table = 'locations';
     protected $fillable = [
         'id ',
         'name',
         'description',
         'address',
+        'image',
         'image_id',
         'review_id',
         'latitude',
@@ -30,6 +31,7 @@ class TouristAttraction extends Model
             'name',
             'description',
             'address',
+            'image',
             'image_id',
             'review_id',
             'latitude',

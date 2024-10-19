@@ -4,19 +4,19 @@
             <div class="logo-topbar">
                 <a href="" class="logo-light">
                     <span class="logo-lg">
-                        <img src="{{ asset('assets/systems/logo-icon.png') }}" alt="logo">
+                        <img src="https://coderthemes.com/hyper/saas/assets/images/logo.png" alt="logo">
                     </span>
                     <span class="logo-sm">
-                        <img src="{{ asset('assets/systems/logo-icon.png') }}" alt="small logo">
+                        <img src="https://coderthemes.com/hyper/saas/assets/images/logo-sm.png}" alt="small logo">
                     </span>
                 </a>
                 <!-- Logo Dark -->
                 <a href="" class="logo-dark">
                     <span class="logo-lg">
-                        <img src="{{ asset('assets/systems/logo-white.png') }}" alt="dark logo">
+                        <img src="https://coderthemes.com/hyper/saas/assets/images/logo-dark.png" alt="dark logo">
                     </span>
                     <span class="logo-sm">
-                        <img src="{{ asset('assets/systems/logo-white.png') }}" alt="small logo">
+                        <img src="https://coderthemes.com/hyper/saas/assets/images/logo-dark-sm.png" alt="small logo">
                     </span>
                 </a>
             </div>
@@ -69,7 +69,7 @@
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <div class="d-flex">
-                                <img class="d-flex me-2 rounded-circle" src="{{ asset('assets/systems/avatar-default.jpg') }}" alt="Generic placeholder image" height="32">
+                                <img class="d-flex me-2 rounded-circle" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Generic placeholder image" height="32">
                                 <div class="w-100">
                                     <h5 class="m-0 font-14">Erwin Brown</h5>
                                     <span class="font-12 mb-0">UI Designer</span>
@@ -79,7 +79,7 @@
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <div class="d-flex">
-                                <img class="d-flex me-2 rounded-circle" src="{{ asset('assets/systems/avatar-default.jpg') }}" alt="Generic placeholder image" height="32">
+                                <img class="d-flex me-2 rounded-circle" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Generic placeholder image" height="32">
                                 <div class="w-100">
                                     <h5 class="m-0 font-14">Jacob Deo</h5>
                                     <span class="font-12 mb-0">Developer</span>
@@ -220,7 +220,7 @@
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="account-user-avatar">
-                        <img src="{{ asset('assets/systems/avatar-default.jpg') }}" alt="user-image" width="32" class="rounded-circle">
+                        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="user-image" width="32" class="rounded-circle">
                     </span>
                     <span class="d-lg-flex flex-column gap-1 d-none">
                         <h5 class="my-0">{{ Auth::user()->full_name }}</h5>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Location;
 use App\Models\TouristAttraction;
 use App\Services\Admin\MapService;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class MapController extends Controller
 
     public function getAllLocation()
     {
-        $location = TouristAttraction::all()->toArray();
+        $location = Location::all()->toArray();
         return response()->json($location);
     }
 
