@@ -106,7 +106,7 @@
                                     </div>
 
                                     <div class="mb-1">
-                                        <div id="map-create1" style="width:100%;height:200px"></div>
+                                        <div id="map" style="width:100%;height:200px"></div>
                                     </div>
 
                                 </div>
@@ -299,7 +299,7 @@
             mapboxgl.accessToken =
                 'pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ';
             const map = new mapboxgl.Map({
-                container: 'map-create',
+                container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v11',
                 projection: 'globe',
                 zoom: 11,

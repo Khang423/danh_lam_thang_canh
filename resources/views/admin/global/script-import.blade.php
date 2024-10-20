@@ -25,16 +25,6 @@
 <script src="{{ env('APP_URL') }}/libraries/ckeditor/ckeditor.js?version={{ config('cache.js_version') }}"></script>
 <!-- Custom -->
 <script src="{{ env('APP_URL') }}/js/admin/config.js?version={{ config('cache.js_version') }}"></script>
-{{-- chart --}}
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
+{{-- Mapbox --}}
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"></script>
-<!-- plugin js -->
-<script src="assets/vendor/dropzone/min/dropzone.min.js"></script>
-<!-- init js -->
-<script src="assets/js/ui/component.fileupload.js"></script>

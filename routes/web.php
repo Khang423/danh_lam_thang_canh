@@ -24,6 +24,7 @@ Route::group(
         Route::get('/map', [MapController::class, 'index'])->name('admin.map');
         Route::get('/map/getAllLocation', [MapController::class, 'getAllLocation'])->name('admin.map.getAllLocation');
         Route::post('/map/store', [MapController::class, 'store'])->name('admin.map.store');
+        Route::post('/search', [MapController::class, 'search'])->name('admin.map.search');
 
         Route::get('/list-location', [LocationController::class, 'index'])->name('admin.list-location');
         Route::get('/getList', [LocationController::class, 'getList'])->name('admin.list-location.getList');
