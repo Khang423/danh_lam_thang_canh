@@ -31,7 +31,7 @@ class LocationController extends Controller
             ->editColumn('image', function ($item) {
                 $image = asset($item->image);
                 return "<div>
-                    <img src='{$image}' style='width:200px;height:150px'  loading='lazy'/>
+                    <img src='{$image}' style='width:200px;height:150px;border-radius:5px;'  loading='lazy'/>
                 </div>";
                 })
             ->editColumn('action', function ($item) {

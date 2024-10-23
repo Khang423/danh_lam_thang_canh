@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('location_images', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('image_id');
-            $table->foreign('image_id')->references('image_id')->on('locations')->cascadeOnDelete();
-            $table->text('thumb_img')->nullable();
+            $table->text('url')->nullable();
             $table->text('img_link')->nullable();
             $table->timestamps();
         });

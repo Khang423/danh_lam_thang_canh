@@ -8,10 +8,10 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Tour</a></li>
-                                <li class="breadcrumb-item active"> Điểm du lịch </li>
+                                <li class="breadcrumb-item active"> Danh sách tour </li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Danh sách điểm du lịch</h4>
+                        <h4 class="page-title">Danh sách sách tour</h4>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                                 <div class="col-sm-5">
                                     <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal"
                                         data-bs-target="#modal-create">
-                                        <i class="mdi mdi-plus-circle me-2"></i> Thêm điểm du lịch
+                                        <i class="mdi mdi-plus-circle me-2"></i> Thêm tour
                                     </button>
                                 </div>
                             </div>
@@ -33,9 +33,10 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tên </th>
+                                            <th>Tên</th>
                                             <th>Ảnh</th>
-                                            <th style="max-width: 100px;">Địa chỉ</th>
+                                            <th>Loại Tour</th>
+                                            <th>Giá</th>
                                             <th>Thời gian</th>
                                             <th style="width: 80px;">Hành động</th>
                                         </tr>
@@ -55,7 +56,7 @@
             <div class="card-body py-0" data-simplebar style="max-height: 600px;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Thêm địa điểm </h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Thêm tour </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                     </div>
                     <div class="modal-body">
@@ -64,49 +65,40 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <label for="loc_img"
+                                        <label for="tour_image"
                                             class="btn btn-info select-image-update mb-2 font-weight-normal d-block">
                                             <i class="uil-images"></i>
-                                            Chọn ảnh địa điểm
+                                            Chọn ảnh
                                         </label>
-                                        <input type="file" hidden name="location_image" id="loc_img"
+                                        <input type="file" hidden name="tour_image" id="tour_image"
                                             onchange="readURL(this);">
                                         <img class="d-none" id="preview" src="http://placehold.it/180"
                                             style="width:100%;height:300px" />
                                     </div>
 
                                     <div class="mb-1">
-                                        <label for="name" class="col-form-label">Tên địa điểm</label>
+                                        <label for="name" class="col-form-label">Tên tour</label>
                                         <input type="text" class="form-control" id="name" name="name"
                                             placeholder="Tên điểm du lịch">
                                         <div class="invalid-feedback error-name"></div>
                                     </div>
 
                                     <div class="mb-1">
-                                        <label for="description" class="col-form-label">Mô tả</label>
-                                        <textarea class="form-control" id="description" name="description" placeholder="Mô tả ngắn" style="height:100px"></textarea>
+                                        <label for="description" class="col-form-label">Mô tả ngắn</label>
+                                        <textarea class="form-control" id="description" name="short_description" placeholder="Mô tả ngắn" style="height:100px"></textarea>
                                     </div>
 
                                     <div class="mb-1">
-                                        <label for="description" class="col-form-label">Địa chỉ</label>
-                                        <textarea class="form-control" id="address" name="address" placeholder="Địa chỉ" style="height:100px"></textarea>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="mb-1 col-6">
-                                            <label for="longtitude" class="col-form-label">Kinh độ</label>
-                                            <input type="text" class="form-control" id="lng" name="longtitude"
-                                                placeholder="Kinh độ">
-                                        </div>
-                                        <div class="mb-1 col-6">
-                                            <label for="latitude" class="col-form-label">Vĩ độ</label>
-                                            <input type="text" class="form-control" id="lat" name="latitude"
-                                                placeholder="Vĩ độ">
-                                        </div>
+                                        <label for="description" class="col-form-label">Giá</label>
+                                        <input type="text" class="form-control" name="price" id="price"
+                                            placeholder="Nhập giá tiền">
                                     </div>
 
                                     <div class="mb-1">
-                                        <div id="map" style="width:100%;height:200px"></div>
+                                        <label for="category_id" class="col-form-label">Loại Tour</label>
+                                        <select class="form-select mb-3" id="category_id" name="category_id">
+                                            <option value="" selected> Chọn loại tour</option>
+                                        </select>
                                     </div>
 
                                 </div>
@@ -114,8 +106,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button id="submit-store" class="btn btn-primary">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                        <button id="submit-store" class="btn btn-success">
                             <i class="mdi mdi-plus-circle me-2"></i> Thêm
                         </button>
                     </div>
@@ -125,12 +117,12 @@
     </div>
     {{-- Model update --}}
     <div class="modal fade" id="modal-update" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        aria-labelledby="staticBackdropLabel">
         <div class="modal-dialog">
             <div class="card-body py-0" data-simplebar style="max-height: 600px;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Cập nhật địa điểm </h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Cập nhật tour </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                     </div>
                     <div class="modal-body">
@@ -140,59 +132,50 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <label for="loc_img-update"
+                                        <label for="tour_img-update"
                                             class="btn btn-info select-image-update mb-2 font-weight-normal d-block">
                                             <i class="uil-images"></i>
-                                            Chọn ảnh địa điểm
+                                            Chọn ảnh
                                         </label>
-                                        <input type="file" hidden name="location_image" id="loc_img-update"
+                                        <input type="file" hidden name="tour_image" id="tour_img-update"
                                             onchange="readURLUpdate(this);">
-                                        <img class="d-none" id="preview-update" style="width:100%;height:300px" />
+                                        <img class="d-none" id="preview-update" src="http://placehold.it/180"
+                                            style="width:100%;height:300px" />
                                     </div>
 
                                     <div class="mb-1">
-                                        <label for="name" class="col-form-label">Tên địa điểm</label>
+                                        <label for="name" class="col-form-label">Tên tour</label>
                                         <input type="text" class="form-control" id="name-update" name="name"
                                             placeholder="Tên điểm du lịch">
                                         <div class="invalid-feedback error-name"></div>
                                     </div>
 
                                     <div class="mb-1">
-                                        <label for="description" class="col-form-label">Mô tả</label>
-                                        <textarea class="form-control" id="description-update" name="description" placeholder="Mô tả ngắn"
+                                        <label for="description" class="col-form-label">Mô tả ngắn</label>
+                                        <textarea class="form-control" id="description-update" name="short_description" placeholder="Mô tả ngắn"
                                             style="height:100px"></textarea>
                                     </div>
 
                                     <div class="mb-1">
-                                        <label for="description" class="col-form-label">Địa chỉ</label>
-                                        <textarea class="form-control" id="address-update" name="address" placeholder="Địa chỉ" style="height:100px"
-                                            value=""></textarea>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="mb-1 col-6">
-                                            <label for="longtitude" class="col-form-label">Kinh độ</label>
-                                            <input type="text" class="form-control" id="lng-update" name="longtitude"
-                                                placeholder="Kinh độ">
-                                        </div>
-                                        <div class="mb-1 col-6">
-                                            <label for="latitude" class="col-form-label">Vĩ độ</label>
-                                            <input type="text" class="form-control" id="lat-update" name="latitude"
-                                                placeholder="Vĩ độ">
-                                        </div>
+                                        <label for="description" class="col-form-label">Giá</label>
+                                        <input type="text" class="form-control" name="price" id="price-update"
+                                            placeholder="Nhập giá tiền">
                                     </div>
 
                                     <div class="mb-1">
-                                        <div id="map-update" style="width:100%;height:200px"></div>
+                                        <label for="category_id-update" class="col-form-label">Loại Tour</label>
+                                        <select class="form-select mb-3" id="category_id-update" name="category_id">
+                                        </select>
                                     </div>
+
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button id="submit-update" class="btn btn-primary">
-                            <i class="mdi mdi-plus-circle me-2"></i> Thêm
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                        <button id="submit-update" class="btn btn-success">
+                            <i class="mdi mdi-plus-circle me-2"></i> Cập nhật
                         </button>
                     </div>
                 </div>
@@ -229,7 +212,7 @@
         let table = $('#table').DataTable({
             responsive: true,
             ajax: {
-                url: `{{ route('admin.list-location.getList') }}`,
+                url: `{{ route('admin.tour.getList') }}`,
             },
             columns: [{
                     data: 'id',
@@ -246,8 +229,13 @@
                     name: 'image',
                 },
                 {
-                    data: 'address',
-                    name: 'address',
+                    data: 'category_id',
+                    name: 'category_id',
+                    orderable: true
+                },
+                {
+                    data: 'price',
+                    name: 'price',
                     orderable: true
                 },
                 {
@@ -272,7 +260,7 @@
             e.preventDefault();
             let _this = $(this);
             let formData = new FormData($('#form-delete')[0]);
-            let routeDelete = `{{ route('admin.list-location.delete') }}`
+            let routeDelete = `{{ route('admin.tour.delete') }}`
             $.ajax({
                 type: 'POST',
                 url: routeDelete,
@@ -294,192 +282,6 @@
             })
         })
 
-        //map-modal-create
-        $('#modal-create').on('shown.bs.modal', () => {
-            mapboxgl.accessToken =
-                'pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ';
-            const map = new mapboxgl.Map({
-                container: 'map',
-                style: 'mapbox://styles/mapbox/streets-v11',
-                projection: 'globe',
-                zoom: 11,
-                center: [105.0690104, 9.9904685]
-            });
-            map.scrollZoom.enable();
-            map.addControl(new mapboxgl.NavigationControl());
-
-            map.on('style.load', () => {
-                map.setFog({});
-            });
-            const secondsPerRevolution = 240;
-            const maxSpinZoom = 5;
-            const slowSpinZoom = 3;
-
-            let userInteracting = false;
-            const spinEnabled = true;
-
-            function spinGlobe() {
-                const zoom = map.getZoom();
-                if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
-                    let distancePerSecond = 360 / secondsPerRevolution;
-                    if (zoom > slowSpinZoom) {
-                        const zoomDif =
-                            (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
-                        distancePerSecond *= zoomDif;
-                    }
-                    const center = map.getCenter();
-                    center.lng -= distancePerSecond;
-                    map.easeTo({
-                        center,
-                        duration: 1000,
-                        easing: (n) => n
-                    });
-                }
-            }
-
-            map.on('mousedown', () => {
-                userInteracting = true;
-            });
-            map.on('dragstart', () => {
-                userInteracting = true;
-            });
-            map.on('moveend', () => {
-                spinGlobe();
-            });
-
-            spinGlobe();
-
-            const lat = document.getElementById("lat");
-            const lng = document.getElementById("lng");
-            const address = document.getElementById("address");
-            // even click to map
-            map.on('dblclick', (event) => {
-                const coordinates = event.lngLat;
-                const longitude = coordinates.lng;
-                const latitude = coordinates.lat;
-
-                // point
-                const markers = document.querySelectorAll('.mapboxgl-marker');
-                markers.forEach(marker => marker.remove());
-                new mapboxgl.Marker()
-                    .setLngLat([coordinates.lng, coordinates.lat])
-                    .addTo(map);
-
-
-                lat.value = latitude.toFixed(6);
-                lng.value = longitude.toFixed(6);
-                fetch(
-                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ`
-                    )
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.features && data.features.length > 0) {
-                            const placeName = data.features[0]
-                                .place_name; // Lấy tên vị trí đầu tiên
-                            address.value = placeName; // Gán giá trị vào input address
-                        } else {
-                            alert("Không tìm thấy tên vị trí.");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Lỗi khi gọi API:", error);
-                    });
-            });
-            map.resize();
-        });
-
-        $('#modal-update').on('shown.bs.modal', () => {
-            mapboxgl.accessToken =
-                'pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ';
-            const map = new mapboxgl.Map({
-                container: 'map-update',
-                style: 'mapbox://styles/mapbox/streets-v11',
-                projection: 'globe',
-                zoom: 11,
-                center: [105.0690104, 9.9904685]
-            });
-            map.scrollZoom.enable();
-            map.addControl(new mapboxgl.NavigationControl());
-
-            map.on('style.load', () => {
-                map.setFog({});
-            });
-            const secondsPerRevolution = 240;
-            const maxSpinZoom = 5;
-            const slowSpinZoom = 3;
-
-            let userInteracting = false;
-            const spinEnabled = true;
-
-            function spinGlobe() {
-                const zoom = map.getZoom();
-                if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
-                    let distancePerSecond = 360 / secondsPerRevolution;
-                    if (zoom > slowSpinZoom) {
-                        const zoomDif =
-                            (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
-                        distancePerSecond *= zoomDif;
-                    }
-                    const center = map.getCenter();
-                    center.lng -= distancePerSecond;
-                    map.easeTo({
-                        center,
-                        duration: 1000,
-                        easing: (n) => n
-                    });
-                }
-            }
-
-            map.on('mousedown', () => {
-                userInteracting = true;
-            });
-            map.on('dragstart', () => {
-                userInteracting = true;
-            });
-            map.on('moveend', () => {
-                spinGlobe();
-            });
-
-            spinGlobe();
-
-            const lat = document.getElementById("lat-update");
-            const lng = document.getElementById("lng-update");
-            const address = document.getElementById("address-update");
-            // even click to map
-            map.on('dblclick', (event) => {
-                const coordinates = event.lngLat;
-                const longitude = coordinates.lng;
-                const latitude = coordinates.lat;
-
-                // point
-                const markers = document.querySelectorAll('.mapboxgl-marker');
-                markers.forEach(marker => marker.remove());
-                new mapboxgl.Marker()
-                    .setLngLat([coordinates.lng, coordinates.lat])
-                    .addTo(map);
-
-                lat.value = latitude.toFixed(6);
-                lng.value = longitude.toFixed(6);
-                fetch(
-                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ`
-                    )
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.features && data.features.length > 0) {
-                            const placeName = data.features[0]
-                                .place_name; // Lấy tên vị trí đầu tiên
-                            address.value = placeName; // Gán giá trị vào input address
-                        } else {
-                            alert("Không tìm thấy tên vị trí.");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Lỗi khi gọi API:", error);
-                    });
-            });
-            map.resize();
-        });
-
         // select image create
         const readURL = (input) => {
             if (input.files && input.files[0]) {
@@ -490,7 +292,6 @@
                 reader.readAsDataURL(input.files[0]);
             }
         };
-
         // select image update
         const readURLUpdate = (input) => {
             if (input.files && input.files[0]) {
@@ -529,20 +330,88 @@
             });
         });
 
-        // show modal update
+        // show select category id
+        const categoryIdData = () => {
+            $.ajax({
+                type: 'GET',
+                url: `{{ route('admin.category.getAllData') }}`,
+                headers: {
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+                success: (data) => {
+                    console.log('success');
+                    data.forEach((i) => {
+                        let option = `<option value ="${i.id}"> ${i.name}</option>`;
+                        $('#category_id').append(option);
+                    });
+                },
+                error: (error) => {
+                    console.log('error', error);
+                }
+            });
+        };
+
+        const categoryIdData1 = () => {
+            $.ajax({
+                type: 'GET',
+                url: `{{ route('admin.category.getAllData') }}`,
+                headers: {
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+                success: (data) => {
+                    console.log('success');
+                    data.forEach((i) => {
+                        let option = `<option value ="${i.id}"> ${i.name}</option>`;
+                        $('#category_id-update').append(option);
+                    });
+                },
+                error: (error) => {
+                    console.log('error', error);
+                }
+            });
+        };
+        categoryIdData1();
+        categoryIdData();
+
+        // submit store
+        $('#submit-store').on('click', (e) => {
+            e.preventDefault();
+            let formData = new FormData($('#form-create')[0]);
+
+            $.ajax({
+                type: 'POST',
+                url: `{{ route('admin.tour.store') }}`,
+                processData: false,
+                contentType: false,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+                success: (data) => {
+                    console.log('Thêm thành công', data);
+                    $('#modal-create').modal('hide'); // Ẩn modal nếu muốn
+                    $('#modal-create').find('form')[0].reset();
+                    table.ajax.reload();
+                },
+                error: (error) => {
+                    console.log('error', error);
+                }
+            });
+        });
+
+        // show data modal update
         $(document).on('click', '.btn-update', (e) => {
             let id = $(e.currentTarget).data('id');
 
             $('#modal-update').on('shown.bs.modal', function() {
-                let lng = document.getElementById('lng-update');
-                let lat = document.getElementById('lat-update');
                 let name = document.getElementById('name-update');
                 let description = document.getElementById('description-update');
-                let address = document.getElementById('address-update');
+                let price = document.getElementById('price-update');
+                let category_id = document.getElementById('category_id-update');
                 let image = $('#preview-update');
 
                 $.ajax({
-                    url: "{{ route('admin.list-location.getDataForUpdate') }}",
+                    url: "{{ route('admin.tour.getDataForUpdate') }}",
                     type: 'GET',
                     dataType: 'json',
                     data: {
@@ -550,11 +419,12 @@
                         _token: "{{ csrf_token() }}"
                     },
                     success: (result) => {
-                        lng.value = result.data[0].longtitude;
-                        lat.value = result.data[0].latitude;
                         name.value = result.data[0].name;
-                        description.value = result.data[0].description;
-                        address.value = result.data[0].address;
+                        description.value = result.data[0].short_description;
+                        price.value = result.data[0].price;
+                        category_id.append(
+                            `<option selected value ="${result.data[0].id}"> ${result.data[0].name}</option>`
+                        );
                         image.attr('src', result.data[0].image).removeClass('d-none');
                         // map.resize();
                     },
@@ -565,18 +435,17 @@
             });
         });
 
-       // submit update
         $('body').on('click', '.btn-update', function() {
             $('#modal-update').find('input[name="id"]').val($(this).attr('data-id'));
         })
- 
+
         $('#submit-update').on('click', (e) => {
             e.preventDefault();
             let formData = new FormData($('#form-update')[0]);
 
             $.ajax({
                 type: 'POST',
-                url: `{{ route('admin.list-location.update') }}`,
+                url: `{{ route('admin.tour.update') }}`,
                 processData: false,
                 contentType: false,
                 data: formData,
@@ -594,7 +463,6 @@
                 }
             });
         });
-
 
     </script>
 @endsection

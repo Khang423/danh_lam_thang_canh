@@ -5,7 +5,8 @@
             <img src="https://coderthemes.com/hyper/saas/assets/images/logo.png" alt="Hytertech" style="height: 28px">
         </span>
         <span class="logo-sm">
-            <img src="https://coderthemes.com/hyper/saas/assets/images/logo-sm.png" alt="Hytertech" style="height:30px;width:30px">
+            <img src="https://coderthemes.com/hyper/saas/assets/images/logo-sm.png" alt="Hytertech"
+                style="height:30px;width:30px">
         </span>
     </a>
     <!-- Sidebar Hover Menu Toggle Button -->
@@ -21,7 +22,8 @@
         <!-- Leftbar User -->
         <div class="leftbar-user">
             <a href="">
-                <img src="{{ asset('assets/systems/avatar-default.jpg') }}" alt="user-image" height="42" class="rounded-circle shadow-sm">
+                <img src="{{ asset('assets/systems/avatar-default.jpg') }}" alt="user-image" height="42"
+                    class="rounded-circle shadow-sm">
                 <span class="leftbar-user-name mt-2">Dominic Keller</span>
             </a>
         </div>
@@ -42,9 +44,33 @@
                 </a>
             </li>
             <li class="side-nav-item">
-                <a href="{{ route('admin.list-location')}}" class="side-nav-link">
-                    <i class="fal fa-sensor"></i>
-                    <span> Danh Sách Địa Điểm  </span>
+                <a href="{{ route('admin.list-location') }}" class="side-nav-link">
+                    <i class="uil-map-marker"></i>
+                    <span> Danh Sách Địa Điểm </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
+                    aria-controls="sidebarEcommerce" class="side-nav-link collapsed">
+                    <i class="uil-plane-departure"></i>
+                    <span> Quản Lí Tour </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarEcommerce" style="">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{ route('admin.category') }}">Loại Tuor</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.tuor') }}">Danh sách tuor</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('admin.list-location') }}" class="side-nav-link">
+                    <i class="uil-file-plus-alt"></i>
+                    <span> Hoá Đơn </span>
                 </a>
             </li>
         </ul>

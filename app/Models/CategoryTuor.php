@@ -6,21 +6,14 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Location extends Model
+class CategoryTuor extends Model
 {
     use HasFactory;
 
-    protected $table = 'locations';
+    protected $table = 'category_tuor';
     protected $fillable = [
-        'id',
+        'id ',
         'name',
-        'description',
-        'address',
-        'image',
-        'image_id',
-        'review_id',
-        'latitude',
-        'longtitude',
         'created_at'
     ];
 
@@ -29,18 +22,16 @@ class Location extends Model
         return [
             'id',
             'name',
-            'description',
-            'address',
-            'image',
-            'image_id',
-            'review_id',
-            'latitude',
-            'longtitude',
-            'created_at'
+            'created_at',
         ];
     }
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function tour()
+    {
+        return $this->hasMany(Tour::class, 'tour_id', 'id');
     }
 }

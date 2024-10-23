@@ -17,8 +17,10 @@ return new class extends Migration
             $table->text('description');
             $table->string('address');
             $table->text('image')->nullable();
-            $table->unsignedBigInteger('image_id')->index()->nullable();
-            $table->text('review_id')->nullable();
+            $table->unsignedBigInteger('image_id')->nullable();
+            $table->foreign('image_id')->references('id')->on('location_images')->cascadeOnDelete();
+            $table->unsignedBigInteger('review_id')->nullable();
+            $table->foreign('review_id')->references('id')->on('reviews')->cascadeOnDelete();
             $table->string('latitude');
             $table->string('longtitude');   
             $table->timestamps();

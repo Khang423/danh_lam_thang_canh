@@ -39,8 +39,8 @@ class MapController extends Controller
         $q = $request->q;
         $result = Location::select(Location::getSelectAttribute())
             ->where('name', 'like', '%' . $q . '%')
-            ->get();
-
+            ->first();
+            
         return response()->json($result);
     }
 }

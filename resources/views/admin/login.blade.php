@@ -15,58 +15,86 @@
     <link href="{{ asset('css/admin/main.css') }}" rel="stylesheet" type="text/css" />
 </head>
 
-<body class="authentication-bg pb-0">
-    <div class="auth-fluid">
-        <div class="auth-fluid-form-box">
-            <div class="card-body d-flex flex-column h-100 gap-3">
-                <div class="auth-brand text-center text-lg-start">
-                    <a href="{{ env('/') }}" class="logo-dark">
-                        <span><img src="{{ asset('assets/systems/logo-light.png') }}" alt="dark logo" height="60"></span>
-                    </a>
-                    <a href="{{ env('/') }}" class="logo-light">
-                        <span><img src="{{ asset('assets/systems/logo-dark.png') }}" alt="logo" height="60"></span>
-                    </a>
-                </div>
-
-                <div class="my-auto">
-                    <h4 class="mt-0">Đăng nhập</h4>
-                    <p class="text-muted mb-4">Nhập vào Email / Số điện thoại và mật khẩu để đăng nhập</p>
-                    <form action="{{ route('admin.login') }}" method="post" id="form-login">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="user_identifier" class="form-label">Email / Số điện thoại</label>
-                            <input class="form-control" type="text" id="emailaddress" required name="user_identifier"
-                                placeholder="Nhập vào Email / Số điện thoại của bạn">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Mật khẩu</label>
-                            <input class="form-control" type="password" required name="password" id="password"
-                                placeholder="Nhập vào mật khẩu của bạn">
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="remember" name="remember_me" value="on">
-                                <label class="form-check-label" for="remember">Ghi nhớ tôi</label>
-                            </div>
-                        </div>
-                        <div class="d-grid mb-0 text-center">
-                            <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Đăng nhập</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="auth-fluid-right text-center">
-            <div class="auth-user-testimonial">
-                <h2 class="mb-3">Hệ thống giàn rau thủy canh thông minh</h2>
-                <p class="lead"><i class="mdi mdi-format-quote-open"></i> Sản phẩm rau sạch và an toàn cho sức khỏe!
-                    <i class="mdi mdi-format-quote-close"></i>
-                </p>
-                <p>
-                    - Trang quản trị -
-                </p>
-        </div>
+<body class="authentication-bg position-relative">
+    <div class="position-absolute start-0 end-0 start-0 bottom-0 w-100 h-100">
+        <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 800 800'>
+            <g fill-opacity='0.22'>
+                <circle style="fill: rgba(var(--ct-primary-rgb), 0.1);" cx='400' cy='400' r='600' />
+                <circle style="fill: rgba(var(--ct-primary-rgb), 0.2);" cx='400' cy='400' r='500' />
+                <circle style="fill: rgba(var(--ct-primary-rgb), 0.3);" cx='400' cy='400' r='300' />
+                <circle style="fill: rgba(var(--ct-primary-rgb), 0.4);" cx='400' cy='400' r='200' />
+                <circle style="fill: rgba(var(--ct-primary-rgb), 0.5);" cx='400' cy='400' r='100' />
+            </g>
+        </svg>
     </div>
+    <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5 position-relative">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-4 col-lg-5">
+                    <div class="card">
+
+                        <!-- Logo -->
+                        <div class="card-header py-4 text-center bg-primary">
+                            <a href="index.html">
+                                <span><img src="https://coderthemes.com/hyper/saas/assets/images/logo.png" alt="logo" height="22"></span>
+                            </a>
+                        </div>
+
+                        <div class="card-body p-4">
+
+                            <div class="text-center w-75 m-auto">
+                                <h3 class="text-dark-50 text-center pb-0 fw-bold">Hệ Thống Quản Lí Du Lịch Kiên Giang</h3>
+                                <h4 class="text-dark-50 text-center pb-0 fw-bold">Đăng Nhập</h4>
+                                <p class="text-muted mb-4">
+                                    Nhập mật khẩu và Gmail để truy cập 
+                                </p>
+                            </div>
+
+                            <form action="{{ route('admin.login') }}" method="post" id="form-login">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="user_identifier" class="form-label">Email / Số điện
+                                        thoại</label>
+                                    <input class="form-control" type="text" id="emailaddress" required
+                                        name="user_identifier" placeholder="Nhập vào Email / Số điện thoại của bạn">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Mật khẩu</label>
+                                    <input class="form-control" type="password" required name="password" id="password"
+                                        placeholder="Nhập vào mật khẩu của bạn">
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="remember"
+                                            name="remember_me" value="on">
+                                        <label class="form-check-label" for="remember">Ghi nhớ tôi</label>
+                                    </div>
+                                </div>
+                                <div class="d-grid mb-0 text-center">
+                                    <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Đăng
+                                        nhập</button>
+                                </div>
+                            </form>
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <p class="text-muted">Don't have an account? <a href="pages-register.html"
+                                    class="text-muted ms-1"><b>Sign Up</b></a></p>
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+
     <!-- Vendor js -->
     <script src="{{ asset('libraries/hyper/vendor.min.js') }}"></script>
     <!-- App js -->
