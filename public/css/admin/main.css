@@ -1,123 +1,173 @@
 /* map */
 .section-map .row #map {
-    width: 100%;
-    height: 700px;
-    margin-top: 20px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;;
+width: 100%;
+height: 700px;
+margin-top: 20px;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;;
 }
 .section-map #form-insert #map-modal {
-    width: 100%;
-    height: 200px;
+width: 100%;
+height: 200px;
 }
 
 /* form show info */
 .section-map #show-info {
-    width: 400px;
-    height: 700px;
-    background-color: white;
-    position: absolute;
-    top: 20px;
-    left: 12px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+width: 400px;
+height: 700px;
+background-color: white;
+position: absolute;
+top: 20px;
+left: 12px;
+box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .section-map #show-info input[type="text"] {
-    width: 100%;
-    height: 30px;
-    outline: none;
+width: 100%;
+height: 30px;
+outline: none;
 }
 .section-map #show-info textarea{
-    width: 100%;
-    border-radius: 5px;
-    border:none;
+width: 100%;
+border-radius: 5px;
+border:none;
 }
 
 .section-map #show-info h2{
-    font-weight: 200;
-    text-align: center;
+font-weight: 200;
+text-align: center;
 }
 
 .mapboxgl-canvas{
-    width: 100%;
+width: 100%;
 }
 
 modal-dialog{
-    width: 700px;
+width: 700px;
 }
 
 .section-map #show-info .location_image img{
-    height: 200px;
-    width: 100%;
+height: 200px;
+width: 100%;
 
 }
 
 .section-map #show-info .location_address,.geographic_coordinates{
-    font-size: 16px;
+font-size: 16px;
 }
 
 .section-map #show-info h2{
-    font-size: 22px;
-    color: black;
-    text-align: start;
+font-size: 22px;
+color: black;
+text-align: start;
 }
 
 .section-map #show-info .content{
-    width: 100%;
-    height: 100%;
-    padding: 15px 25px;
+width: 100%;
+height: 100%;
+padding: 15px 25px;
 }
 .section-map .search {
-    position: absolute;
-    top: 40px;
-    height: 50px;
-    left: 35px;
-    width: 350px;
+position: absolute;
+top: 40px;
+height: 50px;
+left: 35px;
+width: 350px;
 }
 
 .section-map .search input {
-    width: 100%;
-    height: 50px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding-left: 20px;
-    font-size: 16px;
+width: 100%;
+height: 50px;
+border-radius: 5px;
+border: none;
+outline: none;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+padding-left: 20px;
+font-size: 16px;
 }
 
 .section-map .search #search-button {
-    position: absolute;
-    top: 17px;
-    left: 315px;
-    font-size: 20;
+position: absolute;
+top: 17px;
+left: 315px;
+font-size: 20;
 }
 .section-map .search .list-search{
-    height: 100px;
-    width: 350px;
-    position: absolute;
-    top: 54px;
-    background-color: rgb(255, 255, 255);
-    border-radius:5px ;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 15px;
-    cursor: pointer;
+height: 100px;
+width: 350px;
+position: absolute;
+top: 54px;
+background-color: rgb(255, 255, 255);
+border-radius:5px ;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+padding: 15px;
+cursor: pointer;
 }
 .section-map .search .list-search img{
-    height: 70px;
-    width: 120px;
-    border-radius:5px;
+height: 70px;
+width: 120px;
+border-radius:5px;
 }
 .section-map .search .list-search #search-name{
-    position: absolute;
-    top: 15px;
-    left: 150px;
-    font-size: 16px;
+position: absolute;
+top: 15px;
+left: 150px;
+font-size: 16px;
 }
 
 .section-map .search .list-search #gc {
-    position: absolute;
-    top: 40px;
-    left: 150px;
-    font-size: 16px;
+position: absolute;
+top: 40px;
+left: 150px;
+font-size: 16px;
 }
-/* toast */
+/* chart*/
+.highcharts-figure,
+.highcharts-data-table table {
+min-width: 310px;
+max-width: 800px;
+margin: 1em auto;
+}
+
+#container {
+height: 400px;
+}
+
+.highcharts-data-table table {
+font-family: Verdana, sans-serif;
+border-collapse: collapse;
+border: 1px solid #ebebeb;
+margin: 10px auto;
+text-align: center;
+width: 100%;
+max-width: 500px;
+}
+
+.highcharts-data-table caption {
+padding: 1em 0;
+font-size: 1.2em;
+color: #555;
+}
+
+.highcharts-data-table th {
+font-weight: 600;
+padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+background: #f1f7ff;
+}
+
+.highcharts-description {
+margin: 0.3rem 10px;
+}

@@ -307,7 +307,7 @@
             });
             map.scrollZoom.enable();
             map.addControl(new mapboxgl.NavigationControl());
-
+            map.doubleClickZoom.disable();
             map.on('style.load', () => {
                 map.setFog({});
             });
@@ -365,14 +365,17 @@
                     .setLngLat([coordinates.lng, coordinates.lat])
                     .addTo(map);
 
-
                 lat.value = latitude.toFixed(6);
                 lng.value = longitude.toFixed(6);
-                fetch(
-                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ`
-                    )
-                    .then(response => response.json())
-                    .then(data => {
+
+                // Sử dụng AJAX để gọi API
+                $.ajax({
+                    url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json`,
+                    data: {
+                        access_token: 'pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ'
+                    },
+                    method: 'GET',
+                    success: function(data) {
                         if (data.features && data.features.length > 0) {
                             const placeName = data.features[0]
                                 .place_name; // Lấy tên vị trí đầu tiên
@@ -380,11 +383,13 @@
                         } else {
                             alert("Không tìm thấy tên vị trí.");
                         }
-                    })
-                    .catch(error => {
+                    },
+                    error: function(error) {
                         console.error("Lỗi khi gọi API:", error);
-                    });
+                    }
+                });
             });
+
             map.resize();
         });
 
@@ -460,11 +465,15 @@
 
                 lat.value = latitude.toFixed(6);
                 lng.value = longitude.toFixed(6);
-                fetch(
-                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ`
-                    )
-                    .then(response => response.json())
-                    .then(data => {
+
+                // Sử dụng AJAX để gọi API
+                $.ajax({
+                    url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json`,
+                    data: {
+                        access_token: 'pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ'
+                    },
+                    method: 'GET',
+                    success: function(data) {
                         if (data.features && data.features.length > 0) {
                             const placeName = data.features[0]
                                 .place_name; // Lấy tên vị trí đầu tiên
@@ -472,11 +481,13 @@
                         } else {
                             alert("Không tìm thấy tên vị trí.");
                         }
-                    })
-                    .catch(error => {
+                    },
+                    error: function(error) {
                         console.error("Lỗi khi gọi API:", error);
-                    });
+                    }
+                });
             });
+
             map.resize();
         });
 
@@ -565,11 +576,11 @@
             });
         });
 
-       // submit update
+        // submit update
         $('body').on('click', '.btn-update', function() {
             $('#modal-update').find('input[name="id"]').val($(this).attr('data-id'));
         })
- 
+
         $('#submit-update').on('click', (e) => {
             e.preventDefault();
             let formData = new FormData($('#form-update')[0]);
@@ -594,7 +605,5 @@
                 }
             });
         });
-
-
     </script>
 @endsection

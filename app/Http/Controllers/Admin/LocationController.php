@@ -102,4 +102,11 @@ class LocationController extends Controller
 
         return response()->json(['data' => $data]);
     }
+
+    public function getAlldata()
+    {
+        $result = Location::select(Location::getSelectAttribute())->get();
+        
+        return response()->json($result);
+    }
 }

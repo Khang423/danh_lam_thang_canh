@@ -24,8 +24,17 @@
 <!-- Import CKEditor -->
 <script src="{{ env('APP_URL') }}/libraries/ckeditor/ckeditor.js?version={{ config('cache.js_version') }}"></script>
 <!-- Custom -->
-<script src="asset('js/admin/main.js')"></script>
+<script src="{{ asset('js/admin/main.js') }}"></script>
 {{-- Mapbox --}}
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+<script src="{{ asset('libraries/mapbox/mapbox-gl.js') }}"></script>
+{{-- Awesome Font --}}
+<script src="{{ asset('libraries/font_awesome/all.min.css') }}"></script>
+{{-- Fancybox --}}
+<script src="{{ asset('libraries/fancybox/fancybox.min.js') }}"></script>
+{{-- Datepicker Jquery UI --}}
+<script src="{{ asset('libraries/jqueyui/jquery-ui.js') }}"></script>
+{{-- Highchart --}}
+<script src="{{ asset('libraries/highchart/highcharts.js') }}"></script>
+<script src="{{ asset('libraries/highchart/export-data.js') }}"></script>
+<script src="{{ asset('libraries/highchart/exporting.js') }}"></script>
+<script src="{{ asset('libraries/highchart/accessibility.js') }}"></script>

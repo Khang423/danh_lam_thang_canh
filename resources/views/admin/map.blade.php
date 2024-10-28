@@ -50,14 +50,17 @@
             projection: 'globe',
             zoom: 11,
             center: [105.0690104, 9.9904685],
-            doubleClickZoom: false
+            doubleClickZoom: false,
+            attributionControl: false
         });
+
         map.scrollZoom.enable();
         map.addControl(new mapboxgl.NavigationControl());
 
         map.on('style.load', () => {
             map.setFog({});
         });
+
         const secondsPerRevolution = 240;
         const maxSpinZoom = 5;
         const slowSpinZoom = 3;
@@ -104,37 +107,9 @@
             $('#show-info').addClass('d-none');
             show_marker();
         });
-        // even doubleclick to map
-        // map.on('dblclick', (event) => {
-        //     const coordinates = event.lngLat;
-        //     // point
-        //     const markers = document.querySelectorAll('.mapboxgl-marker');
-        //     markers.forEach(marker => marker.remove());
-        //     new mapboxgl.Marker()
-        //         .setLngLat([coordinates.lng, coordinates.lat])
-        //         .addTo(map);
-
-        //     lat.value = latitude.toFixed(6);
-        //     lng.value = longitude.toFixed(6);
-        //     fetch(
-        //             `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1Ijoidm92eWtoYWc0MjMiLCJhIjoiY20xazJkYTRpMThxajJrczhxdG5paTFraCJ9.XFUSvzMs_ROaCMtUozb2vQ`
-        //         )
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.features && data.features.length > 0) {
-        //                 const placeName = data.features[0].place_name; // Lấy tên vị trí đầu tiên
-        //                 address.value = placeName; // Gán giá trị vào input address
-        //             } else {
-        //                 alert("Không tìm thấy tên vị trí.");
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("Lỗi khi gọi API:", error);
-        //         });
-        // });
+        
 
         // show location from database
-
         const click_show_marker = (input) => {
             const name = input.name;
             const address = input.address;
@@ -208,7 +183,6 @@
             });
 
         });
-
         show_marker();
 
         // move to location 
@@ -277,32 +251,35 @@
                         const name = response.name;
                         const image = response.image;
                         const lat = response.latitude;
-                        const lng = response.longtitude;
+                        const lng = response.longtitude; // Sửa `longtitude` thành `longitude`
 
                         $('.list-search').removeClass('d-none');
                         $('#search-name').html(`${name}`);
                         $('#search-image').html(
-                            ` <img src="${image}"> `
+                            `<img src="${image}">`
                         );
-                        $('#gc').html(
-                            `${lng} , ${lat}`
-                        );
+                        $('#gc').html(`${lng} , ${lat}`);
 
-                        $('.list-search').on('click', (e) => {
+                        // Đảm bảo chỉ thêm sự kiện click một lần
+                        $('.list-search').off('click').on('click', (e) => {
                             const markers = document.querySelectorAll('.mapboxgl-marker');
                             markers.forEach(marker => marker.remove());
 
                             const marker = new mapboxgl.Marker()
-                                .setLngLat([response.longtitude, response.latitude])
+                                .setLngLat([response.longtitude, response
+                                .latitude]) // Sửa `longtitude` thành `longitude`
                                 .addTo(map);
 
                             map.flyTo({
-                                center: [response.longtitude, response.latitude],
+                                center: [response.longtitude, response
+                                .latitude], // Sửa `longtitude` thành `longitude`
                                 zoom: 14
                             });
+
                             marker.getElement().addEventListener('click', () => {
                                 click_show_marker(response);
                             });
+
                             $('.list-search').addClass('d-none');
                             $('#search-input').val('');
                         });
@@ -315,7 +292,6 @@
             } else {
                 $('.list-search').addClass('d-none');
             }
-
         });
 
         $('#search-button').on('click', (e) => {
@@ -331,8 +307,5 @@
         Fancybox.bind("[data-fancybox]", {
             // Your custom options
         });
-
-
-        // map in form insert
     </script>
 @endsection

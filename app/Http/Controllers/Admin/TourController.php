@@ -108,4 +108,11 @@ class TourController extends Controller
 
         return response()->json(['data' => $data]);
     }
+
+    public function getAlldata()
+    {
+        $result = Tour::select(Tour::getSelectAttribute())->get();
+
+        return response()->json($result);
+    }
 }

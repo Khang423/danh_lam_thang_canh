@@ -22,10 +22,11 @@
 <link
     href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css?version={{ config('cache.css_version') }}"
     rel="stylesheet" />
-<!-- ChartJS -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <!-- Custom -->
 <link rel="stylesheet" href="{{ env('APP_URL') }}/css/admin/main.css?version={{ config('cache.css_version') }}">
 {{-- Mapbox --}}
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+<link href="{{ asset('libraries/mapbox/mapbox-gl.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('libraries/fancybox/fancybox.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('libraries/jqueyui/jquery-ui.css') }}" />
+

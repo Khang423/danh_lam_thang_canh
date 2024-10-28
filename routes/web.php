@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\admin\BookingController;
 use App\Http\Controllers\admin\CategoryTuorController;
+use App\Http\Controllers\admin\InvoiceController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\MapController;
 use App\Http\Controllers\admin\TourController;
@@ -35,6 +37,7 @@ Route::group(
         Route::post('/location/store', [LocationController::class, 'store'])->name('admin.list-location.store');
         Route::get('/location/getDataForUpdate', [LocationController::class, 'getDataForUpdate'])->name('admin.list-location.getDataForUpdate');
         Route::post('/location/update', [LocationController::class, 'update'])->name('admin.list-location.update');
+        Route::get('/location/getAllData', [LocationController::class, 'getAllData'])->name('admin.list-location.getAllData');
         //tour
         Route::get('/tour', [TourController::class, 'index'])->name('admin.tuor');
         Route::get('/tour/getList', [TourController::class, 'getList'])->name('admin.tour.getList');
@@ -42,6 +45,26 @@ Route::group(
         Route::get('/tour/getDataForUpdate', [TourController::class, 'getDataForUpdate'])->name('admin.tour.getDataForUpdate');
         Route::post('/tour/update', [TourController::class, 'update'])->name('admin.tour.update');
         Route::post('/tour/delete', [TourController::class, 'delete'])->name('admin.tour.delete');
+        Route::get('/tour/getAllData', [TourController::class, 'getAllData'])->name('admin.tour.getAllData');
+
+        // invoice
+        Route::get('/invoice', [InvoiceController::class, 'index'])->name('admin.invoice');
+        Route::get('/invoice/getList', [InvoiceController::class, 'getList'])->name('admin.invoice.getList');
+        Route::post('/invoice/store', [InvoiceController::class, 'store'])->name('admin.invoice.store');
+        Route::get('/invoice/getDataForUpdate', [InvoiceController::class, 'getDataForUpdate'])->name('admin.invoice.getDataForUpdate');
+        Route::post('/invoice/update', [InvoiceController::class, 'update'])->name('admin.invoice.update');
+        Route::post('/invoice/delete', [InvoiceController::class, 'delete'])->name('admin.invoice.delete');
+        Route::get('/invoice/getDataForChart', [InvoiceController::class, 'getDataForChart'])->name('admin.invoice.getDataForChart');
+        Route::post('/invoice/searchChart', [InvoiceController::class, 'searchChart'])->name('admin.invoice.searchChart');
+
+        // booking 
+        Route::get('/booking', [BookingController::class, 'index'])->name('admin.booking');
+        Route::get('/booking/getList', [BookingController::class, 'getList'])->name('admin.booking.getList');
+        Route::post('/booking/store', [BookingController::class, 'store'])->name('admin.booking.store');
+        Route::get('/booking/getDataForUpdate', [BookingController::class, 'getDataForUpdate'])->name('admin.booking.getDataForUpdate');
+        Route::post('/booking/update', [BookingController::class, 'update'])->name('admin.booking.update');
+        Route::post('/booking/delete', [BookingController::class, 'delete'])->name('admin.booking.delete');
+        Route::post('/booking/getDataForChart', [BookingController::class, 'getDataForChart'])->name('admin.booking.getDataForChart');
 
         //category tuor
         Route::get('/category', [CategoryTuorController::class, 'index'])->name('admin.category');

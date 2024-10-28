@@ -41,4 +41,9 @@ class Tour extends Model
     {
         return $this->belongsTo(CategoryTuor::class, 'category_id');
     }
+    
+    public function booking()
+    {
+        return $this->hasMany(Booking::class, 'booking_id', 'id');
+    }
 }

@@ -6,21 +6,17 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Location extends Model
+class Invoice extends Model
 {
     use HasFactory;
 
-    protected $table = 'locations';
+    protected $table = 'invoices';
     protected $fillable = [
         'id',
-        'name',
-        'description',
-        'address',
-        'image',
-        'image_id',
-        'review_id',
-        'latitude',
-        'longtitude',
+        'booking_id',
+        'invoice_date',
+        'tatol_amount',
+        'status',
         'created_at'
     ];
 
@@ -28,14 +24,10 @@ class Location extends Model
     {
         return [
             'id',
-            'name',
-            'description',
-            'address',
-            'image',
-            'image_id',
-            'review_id',
-            'latitude',
-            'longtitude',
+            'booking_id',
+            'invoice_date',
+            'tatol_amount',
+            'status',
             'created_at'
         ];
     }
@@ -46,6 +38,6 @@ class Location extends Model
 
     public function booking()
     {
-        return $this->hasMany(Booking::class, 'booking_id', 'id');
+        return $this->belongsTo(Booking::class, 'booking_id');
     }
 }
