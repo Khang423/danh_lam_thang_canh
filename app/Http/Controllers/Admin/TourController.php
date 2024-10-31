@@ -28,12 +28,15 @@ class TourController extends Controller
     {
         $categoryTuor = $this->tourService->getList();
 
-        return DataTables::of($categoryTuor)->with('category-tour')
+        return DataTables::of($categoryTuor)
             ->editColumn('image', function ($item) {
                 $image = asset($item->image);
                 return "<div>
                 <img src='{$image}' style='width:200px;height:150px;border-radius:5px'  loading='lazy'/>
             </div>";
+            })
+            ->editColumn('location_id', function ($item) {
+                return $item->location->name;
             })
             ->editColumn('price', function ($item) {
                 return number_format($item->price, 0, '', ',') . ' VND';
@@ -115,4 +118,32 @@ class TourController extends Controller
 
         return response()->json($result);
     }
+    
+    public function getAllDataForMap(Request $request)
+    {
+        $result = Tour::select('tours.id','tours.name','tours.image','tours.short_description','tours.price','category_tour.name as category_name','tours.location_id')
+        ->join('locations','locations.id','=','tours.location_id')
+        ->join('category_tour','category_tour.id','=','tours.category_id')
+        ->where('tours.location_id',$request->id)
+        ->get();
+
+        return response()->json($result);
+    }
+
+    public function getDataForId(Request $request)
+    {
+        $tour_id = $request->id;
+        $location_id = $request->location_id;
+
+        $result = Tour::select('locations.name as name_location','tours.id as tour_id','tours.name as name_tour','locations.id as location_id')
+        ->join('locations','locations.id','=','tours.location_id')
+        ->join('category_tour','category_tour.id','=','tours.category_id')
+        ->where('locations.id',$request->location_id)
+        ->where('tours.id',$request->id)
+        ->get();
+        
+        return response()->json($result);
+    }
+
+
 }

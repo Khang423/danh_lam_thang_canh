@@ -68,15 +68,15 @@
                 </div>
             </li>
             <li class="side-nav-item">
-                <a href="{{ route('admin.invoice') }}" class="side-nav-link">
+                <a href="{{ route('admin.bill') }}" class="side-nav-link">
                     <i class="uil-file-plus-alt"></i>
-                    <span> Hoá Đơn </span>
+                    <span> Danh sách đặt tour </span>
                 </a>
             </li>
             <li class="side-nav-item">
-                <a href="{{ route('admin.booking') }}" class="side-nav-link">
-                    <i class="uil-file-plus-alt"></i>
-                    <span> Danh sách đặt tour </span>
+                <a href="{{ route('admin.customer') }}" class="side-nav-link">
+                    <i class="uil-user"></i>
+                    <span> Danh Sách Khách Hàng</span>
                 </a>
             </li>
         </ul>

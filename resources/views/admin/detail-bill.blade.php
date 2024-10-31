@@ -7,11 +7,11 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Tour</a></li>
-                                <li class="breadcrumb-item active"> Danh sách tour </li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Hoá Đơn</a></li>
+                                <li class="breadcrumb-item active"> Danh hoá đơn </li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Danh sách sách tour</h4>
+                        <h4 class="page-title">Danh sách hoá đơn</h4>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                                 <div class="col-sm-5">
                                     <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal"
                                         data-bs-target="#modal-create">
-                                        <i class="mdi mdi-plus-circle me-2"></i> Thêm tour
+                                        <i class="mdi mdi-plus-circle me-2"></i> Thêm hoá đơn
                                     </button>
                                 </div>
                             </div>
@@ -32,13 +32,11 @@
                                     id="table">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Tên</th>
-                                            <th>Địa điểm</th>
-                                            <th>Ảnh</th>
-                                            <th>Loại Tour</th>
-                                            <th>Giá</th>
-                                            <th>Thời gian</th>
+                                            <th>#</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Tour</th>
+                                            <th>Giá Tiền</th>
+                                            <th>Ngày Lập</th>
                                             <th style="width: 80px;">Hành động</th>
                                         </tr>
                                     </thead>
@@ -101,14 +99,6 @@
                                             <option value="" selected> Chọn loại tour</option>
                                         </select>
                                     </div>
-                                    
-                                    <div class="mb-1">
-                                        <label for="category_id" class="col-form-label">Địa điểm</label>
-                                        <select class="form-select mb-3" id="location-create" name="location_id">
-                                            <option value="" selected> Chọn địa điểm </option>
-                                        </select>
-                                    </div>
-
                                 </div>
                             </div>
                         </form>
@@ -220,7 +210,7 @@
         let table = $('#table').DataTable({
             responsive: true,
             ajax: {
-                url: `{{ route('admin.tour.getList') }}`,
+                url: `{{ route('admin.detail_bill.getList') }}`,
             },
             columns: [{
                     data: 'id',
@@ -228,23 +218,13 @@
                     orderable: true,
                 },
                 {
-                    data: 'name',
-                    name: 'name',
+                    data: 'bill_id',
+                    name: 'bill_id',
                     orderable: true,
                 },
                 {
-                    data: 'location_id',
-                    name: 'location_id',
-                    orderable: true,
-                },
-                {
-                    data: 'image',
-                    name: 'image',
-                },
-                {
-                    data: 'category_id',
-                    name: 'category_id',
-                    orderable: true
+                    data: 'tour_id',
+                    name: 'tour_id',
                 },
                 {
                     data: 'price',
@@ -383,27 +363,6 @@
                 }
             });
         };
-
-        const LocationData = () => {
-            $.ajax({
-                type: 'GET',
-                url: `{{ route('admin.list-location.getAllData') }}`,
-                headers: {
-                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
-                },
-                success: (data) => {
-                    console.log('success');
-                    data.forEach((i) => {
-                        let option = `<option value ="${i.id}"> ${i.name}</option>`;
-                        $('#location-create').append(option);
-                    });
-                },
-                error: (error) => {
-                    console.log('error', error);
-                }
-            });
-        };
-        LocationData();
         categoryIdData1();
         categoryIdData();
 

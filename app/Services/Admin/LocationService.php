@@ -17,7 +17,7 @@ class LocationService
         return Location::select(Location::getSelectAttribute())->get();
     }
     public function store($request)
-    {
+    {   
         DB::beginTransaction();
         try {
             $create_img = $this->storeImage($request->file('location_image'), 'location');

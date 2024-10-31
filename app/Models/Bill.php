@@ -6,39 +6,24 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Booking extends Model
+class Bill extends Model
 {
     use HasFactory;
 
-    protected $table = 'bookings';
-    protected $fillable = [
-        'id',
-        'tuors_id',
-        'location_id',
-        'user_id',
-        'booking_date',
-        'created_at'
-    ];
+    protected $table = 'bills';
+    protected $fillable = ['id', 'location_id', 'user_id', 'customer_id', 'total', 'status', 'comment', 'created_at'];
 
     public static function getSelectAttribute()
     {
-        return [
-            'id',
-            'tuors_id',
-            'location_id',
-            'user_id',
-            'booking_date',
-            'created_at'
-        ];
+        return ['id', 'location_id', 'user_id', 'customer_id', 'total', 'status', 'comment', 'created_at'];
     }
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
     }
-    
-    public function tour()
+    public function detail_bill()
     {
-        return $this->belongsTo(Tour::class, 'tuors_id');
+        return $this->hasMany(DetailBill::class, 'detail_bill_id', 'id');
     }
     public function user()
     {
@@ -47,5 +32,9 @@ class Booking extends Model
     public function location()
     {
         return $this->belongsTo(Location::class, 'location_id');
+    }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 }

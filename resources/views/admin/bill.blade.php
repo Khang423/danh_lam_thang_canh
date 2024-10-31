@@ -32,10 +32,12 @@
                                     id="table">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>ID</th>
+                                            <th>#</th>
                                             <th>Tên Khách Hàng</th>
-                                            <th>Tour</th>
                                             <th>Điểm du lịch</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Trạng thái</th>
+                                            <th>Ghi chú </th>
                                             <th>Ngày đặt</th>
                                             <th style="width: 80px;">Hành động</th>
                                         </tr>
@@ -63,24 +65,26 @@
                             @csrf
                             <div class="row">
                                 <div class="col-12">
+                                    <input type="text" hidden value="{{ Auth::user()->id }}" name="user_id">
                                     <div class="mb-1">
                                         <label for="user_id" class="col-form-label">Tên khách hàng</label>
-                                        <select class="form-select mb-3" id="user_id" name="user_id">
-                                            <option value="" selected> user </option>
+                                        <select class="form-select mb-3" id="customer_id" name="customer_id">
+                                            <option value="" selected> Chọn khách hàng </option>
                                         </select>
                                     </div>
 
                                     <div class="mb-1">
                                         <label for="tuors_id" class="col-form-label">Tên Tour</label>
-                                        <select class="form-select mb-3" id="tuors_id" name="tuors_id">
+                                        <select class="form-select mb-3" id="tuors_id" name="tours_id">
                                             <option value="" selected> Chọn tour</option>
+                                        </select>
+                                        <select class="form-select mb-3" id="tuors_price" name="tour_pirce" hidden >
                                         </select>
                                     </div>
                                     <div class="mb-1">
-                                        <label for="location_id" class="col-form-label">Điểm du lịch</label>
-                                        <select class="form-select mb-3" id="location_id" name="location_id">
-                                            <option value="" selected> Chọn địa điểm</option>
-                                        </select>
+                                        <label for="comment" class="col-form-label">Ghi chú</label>
+                                        <textarea name="comment" id="comment" class="form-control"  rows="3">
+                                        </textarea> 
                                     </div>
 
                                 </div>
@@ -164,6 +168,34 @@
             </div>
         </div>
     </div>
+    {{-- Modal detail --}}
+    <div class="modal fade" id="modal-detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">  
+            <div class="card-body py-0" data-simplebar style="max-height: 600px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Chi tiết hoá đơn </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body">    
+                        <div class="mb-1">
+                            <label for="detail_name_tour" class="col-form-label">Tên Tour</label>
+                            <input type="text" id="detail_name_tour" class="form-control" >
+                        </div>
+                        <div class="mb-1">
+                            <label for="price" class="col-form-label">Giá Tiền</label>
+                            <input type="text" id="detail_price"  class="form-control" >
+                        </div>
+                        <div class="mb-1">
+                            <label for="created_at" class="col-form-label">Ngày Lập</label>
+                            <input type="text" id="created_at"  class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- Model delete --}}
     <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="model-delete-label" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen-sm-down">
@@ -194,7 +226,7 @@
         let table = $('#table').DataTable({
             responsive: true,
             ajax: {
-                url: `{{ route('admin.booking.getList') }}`,
+                url: `{{ route('admin.bill.getList') }}`,
             },
             columns: [{
                     data: 'id',
@@ -207,13 +239,23 @@
                     orderable: true,
                 },
                 {
-                    data: 'tuors_id',
-                    name: 'tuors_id',
-                    orderable: true,
-                },
-                {
                     data: 'location_id',
                     name: 'location_id',
+                    orderable: true
+                },
+                {
+                    data: 'total',
+                    name: 'total',
+                    orderable: true
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    orderable: true
+                },
+                {
+                    data: 'comment',
+                    name: 'comment',
                     orderable: true
                 },
                 {
@@ -238,7 +280,7 @@
             e.preventDefault();
             let _this = $(this);
             let formData = new FormData($('#form-delete')[0]);
-            let routeDelete = `{{ route('admin.booking.delete') }}`
+            let routeDelete = `{{ route('admin.bill.delete') }}`
             $.ajax({
                 type: 'POST',
                 url: routeDelete,
@@ -260,33 +302,6 @@
             })
         })
 
-        // submit store
-        $('#submit-store').on('click', (e) => {
-            e.preventDefault();
-            let formData = new FormData($('#form-create')[0]);
-
-            $.ajax({
-                type: 'POST',
-                url: `{{ route('admin.list-location.store') }}`,
-                processData: false,
-                contentType: false,
-                data: formData,
-                headers: {
-                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
-                },
-                success: (data) => {
-                    console.log('Thêm thành công', data);
-                    $('#modal-create').modal('hide'); // Ẩn modal nếu muốn
-                    $('#modal-create').find('form')[0].reset();
-                    table.ajax.reload();
-                },
-                error: (error) => {
-                    console.log('error', error);
-                }
-            });
-        });
-
-        // show select category id
         const locationData = () => {
             $.ajax({
                 type: 'GET',
@@ -295,7 +310,6 @@
                     'X-CSRF-TOKEN': `{{ csrf_token() }}`
                 },
                 success: (data) => {
-                    console.log('get data location: ', data);
                     data.forEach((i) => {
                         let option = `<option value ="${i.id}"> ${i.name}</option>`;
                         $('#location_id').append(option);
@@ -307,6 +321,25 @@
             });
         };
 
+        const customerData = () => {
+            $.ajax({
+                type: 'GET',
+                url: `{{ route('admin.customer.getAllData') }}`,
+                headers: {
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+                success: (data) => {
+                    data.forEach((i) => {
+                        let option = `<option value ="${i.id}"> ${i.name}</option>`;
+                        $('#customer_id').append(option);
+                    });
+                },
+                error: (error) => {
+                    console.log('error', error);
+                }
+            });
+        };
+        customerData();
         const tourData = () => {
             $.ajax({
                 type: 'GET',
@@ -315,10 +348,9 @@
                     'X-CSRF-TOKEN': `{{ csrf_token() }}`
                 },
                 success: (data) => {
-                    console.log('get data location: ', data);
                     data.forEach((i) => {
-                        let option = `<option value ="${i.id}"> ${i.name}</option>`;
-                        $('#tuors_id').append(option);
+                        let tour_id = `<option value ="${i.id}"> ${i.name} - ${i.price}</option>`;
+                        $('#tuors_id').append(tour_id);
                     });
                 },
                 error: (error) => {
@@ -337,7 +369,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: `{{ route('admin.tour.store') }}`,
+                url: `{{ route('admin.bill.store') }}`,
                 processData: false,
                 contentType: false,
                 data: formData,
@@ -355,35 +387,27 @@
                 }
             });
         });
-
-        // show data modal update
-        $(document).on('click', '.btn-update', (e) => {
+        // show modal detail
+        $(document).on('click', '#btn-detail', (e) => {
             let id = $(e.currentTarget).data('id');
-
-            $('#modal-update').on('shown.bs.modal', function() {
-                let name = document.getElementById('name-update');
-                let description = document.getElementById('description-update');
-                let price = document.getElementById('price-update');
-                let category_id = document.getElementById('category_id-update');
-                let image = $('#preview-update');
+            console.log(id);
+            
+            $('#modal-detail').on('shown.bs.modal', function() {
+                let name = document.getElementById('detail_name_tour');
+                let price = document.getElementById('detail_price');
 
                 $.ajax({
-                    url: "{{ route('admin.tour.getDataForUpdate') }}",
-                    type: 'GET',
+                    url: "{{ route('admin.detail_bill.getDataForUpdate') }}",
+                    type: 'POST',
                     dataType: 'json',
                     data: {
                         id: id,
                         _token: "{{ csrf_token() }}"
                     },
                     success: (result) => {
+                        console.log(result);
                         name.value = result.data[0].name;
-                        description.value = result.data[0].short_description;
                         price.value = result.data[0].price;
-                        category_id.append(
-                            `<option selected value ="${result.data[0].id}"> ${result.data[0].name}</option>`
-                        );
-                        image.attr('src', result.data[0].image).removeClass('d-none');
-                        // map.resize();
                     },
                     error: (error) => {
                         console.log(error);

@@ -561,13 +561,13 @@
                         _token: "{{ csrf_token() }}"
                     },
                     success: (result) => {
+                        $('#form-update')[0].reset();
                         lng.value = result.data[0].longtitude;
                         lat.value = result.data[0].latitude;
                         name.value = result.data[0].name;
                         description.value = result.data[0].description;
                         address.value = result.data[0].address;
                         image.attr('src', result.data[0].image).removeClass('d-none');
-                        // map.resize();
                     },
                     error: (error) => {
                         console.log(error);

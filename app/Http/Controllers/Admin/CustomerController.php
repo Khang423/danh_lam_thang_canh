@@ -1,35 +1,41 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\CategoryTour;
-use App\Models\CategoryTuor;
-use App\Services\Admin\CategoryTuorService;
+use App\Models\Customer;
+use App\Services\Admin\CustomerService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class CategoryTuorController extends Controller
+class CustomerController extends Controller
 {
     use ResponseTrait;
-    public CategoryTuorService $categoryService;
+    public CustomerService $customerService;
 
-    public function __construct(CategoryTuorService $categoryService)
+    public function __construct(CustomerService $customerService)
     {
-        $this->categoryService = $categoryService;
+        $this->customerService = $customerService;
+    }
+
+    public function getAllData()
+    {
+        $result = Customer::select(Customer::getSelectAttribute())->get();
+
+        return response()->json($result);
     }
 
     public function index()
     {
-        return view('admin.category');
+        return view('admin.customer');
     }
 
     public function getList()
     {
-        $categoryTuor = $this->categoryService->getList();
+        $customer = $this->customerService->getList();
 
-        return DataTables::of($categoryTuor)
+        return DataTables::of($customer)
             ->editColumn('action', function ($item) {
                 return "
             <a
@@ -59,7 +65,7 @@ class CategoryTuorController extends Controller
 
     public function store(Request $request)
     {
-        $result = $this->categoryService->store($request);
+        $result = $this->customerService->store($request);
 
         if ($result == true) {
             return $this->responseDataSuccess($result);
@@ -70,7 +76,7 @@ class CategoryTuorController extends Controller
 
     public function update(Request $request)
     {
-        $result = $this->categoryService->update($request);
+        $result = $this->customerService->update($request);
 
         if ($result == true) {
             return $this->responseDataSuccess($result);
@@ -81,19 +87,12 @@ class CategoryTuorController extends Controller
 
     public function delete(Request $request)
     {
-        $result = $this->categoryService->delete($request);
+        $result = $this->customerService->delete($request);
 
         if ($result == true) {
             return $this->responseDataSuccess($result);
         }
 
         return $this->responseMessageBadrequest();
-    }
-
-    public function getAlldata()
-    {
-        $result = CategoryTour::select(CategoryTour::getSelectAttribute())->get();
-
-        return response()->json($result);
     }
 }

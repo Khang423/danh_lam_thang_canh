@@ -6,17 +6,17 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Invoice extends Model
+class Customer extends Model
 {
     use HasFactory;
 
-    protected $table = 'invoices';
+    protected $table = 'customers';
     protected $fillable = [
         'id',
-        'booking_id',
-        'invoice_date',
-        'tatol_amount',
-        'status',
+        'name',
+        'tel',
+        'gmail',
+        'address',
         'created_at'
     ];
 
@@ -24,10 +24,10 @@ class Invoice extends Model
     {
         return [
             'id',
-            'booking_id',
-            'invoice_date',
-            'tatol_amount',
-            'status',
+            'name',
+            'tel',
+            'gmail',
+            'address',
             'created_at'
         ];
     }
@@ -36,8 +36,8 @@ class Invoice extends Model
         return Carbon::parse($value)->format('d/m/Y');
     }
 
-    public function booking()
+    public function bill()
     {
-        return $this->belongsTo(Booking::class, 'booking_id');
+        return $this->hasMany(Bill::class, 'bill_id', 'id');
     }
 }

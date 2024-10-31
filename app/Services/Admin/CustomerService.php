@@ -4,21 +4,22 @@ namespace App\Services\Admin;
 
 use App\Models\CategoryTour;
 use App\Models\CategoryTuor;
+use App\Models\Customer;
 use App\Traits\ImageTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class CategoryTuorService
+class CustomerService
 {
     use ImageTrait;
     public function getList()
     {
-        return CategoryTour::select(CategoryTour::getSelectAttribute())->get();
+        return Customer::select(Customer::getSelectAttribute())->get();
     }
     public function store($request)
     {
-        CategoryTour::create([
+        Customer::create([
             'name' => $request->name,
             'short_description' => $request->short_description
         ]);
@@ -28,7 +29,7 @@ class CategoryTuorService
 
     public function update($request)
     {
-        $location = CategoryTour::find($request->id);
+        $location = Customer::find($request->id);
         $location->name = $request->name;
         $location->short_description = $request->short_description;
 
@@ -37,7 +38,7 @@ class CategoryTuorService
 
     public function delete($request)
     {
-        $location = CategoryTour::find($request->id);
+        $location = Customer::find($request->id);
         $location->delete();
 
         return true;

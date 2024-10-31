@@ -34,6 +34,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Tên Loại Tour </th>
+                                            <th>Mô tả ngắn </th>
                                             <th>Thời gian</th>
                                             <th style="width: 80px;">Hành động</th>
                                         </tr>
@@ -62,9 +63,16 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="mb-1">
-                                        <label for="name" class="col-form-label">Tên Loại Tuor</label>
+                                        <label for="name" class="col-form-label">Tên loại tour</label>
                                         <input type="text" class="form-control" id="name" name="name"
                                             placeholder="Tên loại tuor">
+                                        <div class="invalid-feedback error-name"></div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="short_description" class="col-form-label">Mô tả ngắn</label>
+                                        <textarea type="text" class="form-control" id="short_description" name="short_description"
+                                            placeholder="Mô tả ngắn">
+                                        </textarea>
                                         <div class="invalid-feedback error-name"></div>
                                     </div>
                                 </div>
@@ -98,9 +106,16 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="mb-1">
-                                        <label for="name" class="col-form-label">Tên loại tuor</label>
+                                        <label for="name" class="col-form-label">Tên loại tour</label>
                                         <input type="text" class="form-control" id="name-update" name="name"
                                             placeholder="Tên điểm du lịch">
+                                        <div class="invalid-feedback error-name"></div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="short_description" class="col-form-label">Mô tả ngắn</label>
+                                        <textarea type="text" class="form-control" id="short_description" name="short_description"
+                                            placeholder="Mô tả ngắn">
+                                        </textarea>
                                         <div class="invalid-feedback error-name"></div>
                                     </div>
                                 </div>
@@ -157,6 +172,11 @@
                 {
                     data: 'name',
                     name: 'name',
+                    orderable: true,
+                },
+                {
+                    data: 'short_description',
+                    name: 'short_description',
                     orderable: true,
                 },
                 {

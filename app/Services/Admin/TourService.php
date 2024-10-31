@@ -25,6 +25,7 @@ class TourService
                 'short_description' => $request->short_description,
                 'name' => $request->name,
                 'category_id' => $request->category_id,
+                'location_id' => $request->location_id,
                 'price' => $request->price,
             ]);
             DB::commit();
@@ -45,6 +46,7 @@ class TourService
             $tour->short_description = $request->short_description;
             $tour->price = $request->price;
             $tour->category_id = $request->category_id;
+            $tour->location_id = $request->location_id;
 
             if ($request->file('tour_image')) {
                 if ($tour->image) {

@@ -48,8 +48,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function booking()
+    public function bill()
     {
-        return $this->hasMany(Booking::class, 'booking_id', 'id');
+        return $this->hasMany(Bill::class, 'bill_id', 'id');
     }
 }

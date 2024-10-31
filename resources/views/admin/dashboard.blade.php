@@ -22,7 +22,7 @@
                                 <div class="col-12">
                                     <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Tổng lượt đặt
                                         Tour
-                                        <h3 class="my-2 py-1"></h3>
+                                        <h3 class="my-2 py-1"> {{ $sumBooking }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                             <div class="row align-items-center">
                                 <div class="col-12">
                                     <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">Tours </h5>
-                                    <h3 class="my-2 py-1"></h3>
+                                    <h3 class="my-2 py-1">{{ $sumTour }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                                 <div class="col-12">
                                     <h5 class="text-muted fw-normal mt-0 text-truncate" title="Deals">Danh lam thang canh
                                     </h5>
-                                    <h3 class="my-2 py-1"></h3>
+                                    <h3 class="my-2 py-1">{{ $sumLocation }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                             <div class="row align-items-center">
                                 <div class="col-12">
                                     <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">Doanh số</h5>
-                                    <h3 class="py-1"></h3>
+                                    <h3 class="py-1">{{ $totalAmount }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
         
         const chart = () => {
             $.ajax({
-                url: `{{ route('admin.invoice.getDataForChart') }}`,
+                url: `{{ route('admin.detail_bill.getDataForChart') }}`,
                 type: 'GET',
                 dataType: 'json',
                 success: (data) => {
@@ -198,7 +198,7 @@
             let formData = new FormData($('#form-search')[0]);
 
             $.ajax({
-                url: `{{ route('admin.invoice.searchChart') }}`,
+                url: `{{ route('admin.detail_bill.searchChart') }}`,
                 type: 'POST',
                 data: formData,
                 headers: {
@@ -213,7 +213,7 @@
 
                     // Duyệt qua từng item và thêm dữ liệu vào mảng
                     result.forEach(item => {
-                        dates.push(item.date); // Lưu các ngày vào mảng
+                        dates.push(item.name); // Lưu các ngày vào mảng
                         totals.push(item.total); // Lưu tổng tiền vào mảng
                     });
 

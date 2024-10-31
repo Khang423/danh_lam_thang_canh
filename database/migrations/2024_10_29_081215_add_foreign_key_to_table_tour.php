@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_tour', function (Blueprint $table) {
-            $table->id()->index();
-            $table->text('name');
-            $table->text('short_description');
-            $table->timestamps();
+        Schema::table('tours', function (Blueprint $table) {
+            $table->unsignedBigInteger('location_id');
+            $table->foreign('location_id')->references('id')->on('locations');
         });
     }
 
@@ -24,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_tour');
+        Schema::table('tours', function (Blueprint $table) {
+            $table->dropForeign(['location_id']);
+            $table->dropColumn('location_id');
+        });
     }
 };

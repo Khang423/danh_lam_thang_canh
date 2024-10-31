@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Models\DetailBill;
 use App\Models\Invoice;
 use App\Models\TouristAttraction;
 use App\Traits\ImageTrait;
@@ -14,7 +15,7 @@ class InvoiceService
     use ImageTrait;
     public function getList()
     {
-        return Invoice::select(Invoice::getSelectAttribute())->get();
+        return DetailBill::select(DetailBill::getSelectAttribute())->get();
     }
     
     public function store($request)
@@ -22,7 +23,7 @@ class InvoiceService
         DB::beginTransaction();
         try {
             $create_img = $this->storeImage($request->file('Invoice_image'), 'Invoice');
-            Invoice::create([
+            DetailBill::create([
                 'longtitude' => $request->longtitude,
                 'latitude' => $request->latitude,
                 'address' => $request->address,
@@ -42,30 +43,30 @@ class InvoiceService
 
     public function update($request)
     {  
-        $Invoice = Invoice::find($request->id);
-        $Invoice->name = $request->name;
-        $Invoice->description = $request->description;
-        $Invoice->latitude = $request->latitude;
-        $Invoice->longtitude = $request->longtitude;
-        $Invoice->address = $request->address;
+        $detail_bill = DetailBill::find($request->id);
+        $detail_bill->name = $request->name;
+        $detail_bill->description = $request->description;
+        $detail_bill->latitude = $request->latitude;
+        $detail_bill->longtitude = $request->longtitude;
+        $detail_bill->address = $request->address;
 
         if($request->file('Invoice_image'))
         {
-            if($Invoice->image)
+            if($detail_bill->image)
             {
                 $this->deleteImage($request->Invoice_image);
             }
             $upLoadFile = $this->storeImage($request->file('Invoice_image'), 'Invoice');
-            $Invoice->image = $upLoadFile['url'];
+            $detail_bill->image = $upLoadFile['url'];
         }
         
-        return $Invoice->save();
+        return $detail_bill->save();
     }
 
     public function delete($request)
     {
-        $Invoice = Invoice::find($request->id);
-        $Invoice->delete();
+        $detail_bill = DetailBill::find($request->id);
+        $detail_bill->delete();
 
         return true;
     }

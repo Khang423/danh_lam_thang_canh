@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('location_images', function (Blueprint $table) {
             $table->id();
             $table->text('url')->nullable();
-            $table->text('img_link')->nullable();
             $table->timestamps();
         });
     }

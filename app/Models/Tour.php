@@ -17,6 +17,7 @@ class Tour extends Model
         'short_description',
         'image',
         'price',
+        'location_id',
         'category_id',
         'created_at'
     ];
@@ -29,6 +30,7 @@ class Tour extends Model
             'short_description',
             'image',
             'price',
+            'location_id',
             'category_id',
             'created_at'
         ];
@@ -39,11 +41,16 @@ class Tour extends Model
     }
     public function category_tour()
     {
-        return $this->belongsTo(CategoryTuor::class, 'category_id');
+        return $this->belongsTo(CategoryTour::class, 'category_id');
     }
     
-    public function booking()
+    public function detail_bill()
     {
-        return $this->hasMany(Booking::class, 'booking_id', 'id');
+        return $this->hasMany(DetailBill::class, 'detail_bill_id', 'id');
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'location_id');
     }
 }

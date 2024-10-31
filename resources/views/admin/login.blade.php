@@ -63,13 +63,6 @@
                                     <input class="form-control" type="password" required name="password" id="password"
                                         placeholder="Nhập vào mật khẩu của bạn">
                                 </div>
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="remember"
-                                            name="remember_me" value="on">
-                                        <label class="form-check-label" for="remember">Ghi nhớ tôi</label>
-                                    </div>
-                                </div>
                                 <div class="d-grid mb-0 text-center">
                                     <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Đăng
                                         nhập</button>
@@ -79,12 +72,6 @@
                     </div>
                     <!-- end card -->
 
-                    <div class="row mt-3">
-                        <div class="col-12 text-center">
-                            <p class="text-muted">Don't have an account? <a href="pages-register.html"
-                                    class="text-muted ms-1"><b>Sign Up</b></a></p>
-                        </div> <!-- end col -->
-                    </div>
                     <!-- end row -->
 
                 </div> <!-- end col -->

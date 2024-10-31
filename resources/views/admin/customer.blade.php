@@ -7,11 +7,11 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Hoá Đơn</a></li>
-                                <li class="breadcrumb-item active"> Danh hoá đơn </li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Khách hàng</a></li>
+                                <li class="breadcrumb-item active"> Danh sách khách hàng </li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Danh sách hoá đơn</h4>
+                        <h4 class="page-title">Danh sách khách hàng</h4>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                                 <div class="col-sm-5">
                                     <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal"
                                         data-bs-target="#modal-create">
-                                        <i class="mdi mdi-plus-circle me-2"></i> Thêm hoá đơn
+                                        <i class="mdi mdi-plus-circle me-2"></i> Thêm khách hàng
                                     </button>
                                 </div>
                             </div>
@@ -32,12 +32,12 @@
                                     id="table">
                                     <thead class="table-light">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Tên Khách Hàng</th>
-                                            <th>Tour</th>
-                                            <th>Tổng Tiền</th>
-                                            <th>Trạng Thái</th>
-                                            <th>Ngày Lập</th>
+                                            <th>#</th>
+                                            <th>Tên</th>
+                                            <th>Số Điện Thoại</th>
+                                            <th>Gmail</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Thời gian</th>
                                             <th style="width: 80px;">Hành động</th>
                                         </tr>
                                     </thead>
@@ -100,6 +100,14 @@
                                             <option value="" selected> Chọn loại tour</option>
                                         </select>
                                     </div>
+                                    
+                                    <div class="mb-1">
+                                        <label for="category_id" class="col-form-label">Địa điểm</label>
+                                        <select class="form-select mb-3" id="location-create" name="location_id">
+                                            <option value="" selected> Chọn địa điểm </option>
+                                        </select>
+                                    </div>
+
                                 </div>
                             </div>
                         </form>
@@ -211,7 +219,7 @@
         let table = $('#table').DataTable({
             responsive: true,
             ajax: {
-                url: `{{ route('admin.invoice.getList') }}`,
+                url: `{{ route('admin.customer.getList') }}`,
             },
             columns: [{
                     data: 'id',
@@ -219,21 +227,22 @@
                     orderable: true,
                 },
                 {
-                    data: 'booking_id',
-                    name: 'booking_id',
+                    data: 'name',
+                    name: 'name',
                     orderable: true,
                 },
                 {
-                    data: 'tour_id',
-                    name: 'tour_id',
+                    data: 'tel',
+                    name: 'tel',
+                    orderable: true,
                 },
                 {
-                    data: 'tatol_amount',
-                    name: 'tatol_amount',
+                    data: 'gmail',
+                    name: 'gmail',
                 },
                 {
-                    data: 'status',
-                    name: 'status',
+                    data: 'address',
+                    name: 'address',
                     orderable: true
                 },
                 {
@@ -368,6 +377,27 @@
                 }
             });
         };
+
+        const LocationData = () => {
+            $.ajax({
+                type: 'GET',
+                url: `{{ route('admin.list-location.getAllData') }}`,
+                headers: {
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+                success: (data) => {
+                    console.log('success');
+                    data.forEach((i) => {
+                        let option = `<option value ="${i.id}"> ${i.name}</option>`;
+                        $('#location-create').append(option);
+                    });
+                },
+                error: (error) => {
+                    console.log('error', error);
+                }
+            });
+        };
+        LocationData();
         categoryIdData1();
         categoryIdData();
 

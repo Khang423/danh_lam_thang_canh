@@ -1,5 +1,48 @@
 @extends('admin.main')
 @section('content')
+
+    <head>
+        <style>
+            .section-map #show-info .content .list_tour {
+                width: 100%;
+                height: 100%;
+            }
+
+            .section-map #show-info .content .list_tour .tours {
+                width: 95%;
+                height: 95%;
+                margin: 2.5%;
+                padding: 2.5%;
+                border-radius: 5px;
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+                cursor: pointer;
+            }
+
+            .section-map #show-info .content .list_tour .tours:hover {
+                background-color: rgb(230, 229, 229);
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+            }
+
+            .section-map .form-order {
+                height: 680px;
+                width: 500px;
+                background-color: white;
+                position: absolute;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 10px;
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+                padding: 20px;
+            }
+
+            .section-map .form-order .btn-handle {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+            }
+        </style>
+    </head>
     <div class="content">
         <div class="container-fluid"">
             <section class="section-map">
@@ -14,9 +57,18 @@
                         <div class="content">
                             <div class="location_name">
                             </div>
+                            <hr>
                             <div class="location_address">
                             </div>
+                            <hr>
+                            <div class="description" style="text-align:justify">
+                            </div>
+                            <hr>
                             <div class="geographic_coordinates">
+                            </div>
+                            <hr>
+                            <h2>Tour Du Lịch </h2>
+                            <div class="list_tour">
                             </div>
                         </div>
                     </div>
@@ -31,6 +83,53 @@
                         <div id="search-image"> </div>
                         <div id="search-name"></div>
                         <div id="gc"></div>
+                    </div>
+                </div>
+                <div class="form-order d-none">
+                    <h3 style="text-align:center">Đặt Tuor</h3>
+                    <form id="form-order">
+                        @csrf
+                        <div class="row mb-1">
+                            <div class="col-7">
+                                <label for="cus_name" class="col-form-label"> Họ và tên </label>
+                                <input type="text" name="name" id="cus_name" placeholder="Nhập họ tên..."
+                                    class="form-control">
+                            </div>
+                            <div class="col-5">
+                                <label for="cus_tel" class="col-form-label"> Số điện thoại </label>
+                                <input type="text" name="tel" id="cus_tel" placeholder="Nhập số điện thoại..."
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="mb-1">
+                            <label for="cus_gmail" class="col-form-label">Gmail</label>
+                            <input type="email" class="form-control" name="gmail" id="cus_gmail"
+                                placeholder="Nhập gmail...">
+                        </div>
+                        <div class="mb-1">
+                            <label for="cus_address" class="col-form-label">Địa chỉ </label>
+                            <textarea name="address" id="cus_address" class="form-control" cols="0" rows="2"></textarea>
+                        </div>
+                        <div class="mb-1">
+                            <label for="comment" class="col-form-label">Ghi chú </label>
+                            <textarea name="comment" id="comment" class="form-control" cols="0" rows="2"></textarea>
+                        </div>
+                        <div class="mb-1" >
+                            <label for="name_location" class="col-form-label">Địa điểm du lịch</label>
+                            <input type="text" hidden name="location_id" value="" id="location_id">
+                            <input type="email" class="form-control" id="name_location">
+                        </div>
+                        <div class="mb-1" >
+                            <label for="name_tour" class="col-form-label">Tour du lịch</label>
+                            <input type="text" hidden name="tours_id" value="" id="tour_id"">
+                            <input type="email" class="form-control" id="name_tour">
+                        </div>
+                    </form>
+                    <div class="btn-handle">
+                        <button type="button" class="btn btn-danger" id="btn-close">Đóng</button>
+                        <button id="submit-store" class="btn btn-success">
+                            <i class="mdi mdi-plus-circle me-2"></i> Thêm
+                        </button>
                     </div>
                 </div>
             </section>
@@ -107,7 +206,7 @@
             $('#show-info').addClass('d-none');
             show_marker();
         });
-        
+
 
         // show location from database
         const click_show_marker = (input) => {
@@ -117,6 +216,7 @@
             const longtitude = input.longtitude;
             const image = input.image;
             const description = input.description;
+            const id = input.id;
 
             $('#show-info').removeClass('d-none');
             $('.location_name').html(`<h2> ${name}</h2>`);
@@ -125,12 +225,51 @@
             $('.geographic_coordinates').html(
                 `<i class="uil-globe"></i> ${longtitude} , ${latitude}`
             );
-            $('.location_description').html(
+            $('.description').html(
                 `<i class="uil-globe"></i> ${description}`
             );
             $('.location_image').html(
                 ` <img src="${image}" data-fancybox="gallery" data-caption="${name}"> `
             );
+            $('.list_tour').empty();
+            $('#tour_id').empty();
+
+            $.ajax({
+                url: `{{ route('admin.tour.getAllDataForMap') }}`,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: (result) => {
+                    result.forEach((item) => {
+
+                        const formattedPrice = new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }).format(item.price);
+
+                        $(`<div class="tours">
+                            <img src="${item.image}" data-fancybox="gallery" style="width:100%;border-radius:5px">
+                            <h3>${item.name}</h3>
+                            <h4>Thời Gian: ${item.category_name}</h4>
+                            <div class="row">
+                                <div class="col-7">
+                                    <h4>${formattedPrice}</h4>
+                                </div>    
+                                <div class="col-5">
+                                    <div class="btn btn-success" data-id="${item.id}" data-location="${item.location_id}" id="btn-order">Đặt Tour</div>
+                                </div>  
+                            </div>
+                        </div>`).appendTo('.list_tour');
+                    });
+                },
+                error: (error) => {
+
+                }
+            });
+
         };
 
         const show_marker = (() => {
@@ -150,26 +289,7 @@
                             });
                             // show marker
                             marker.getElement().addEventListener('click', () => {
-                                const name = item.name;
-                                const address = item.address;
-                                const latitude = item.latitude;
-                                const longtitude = item.longtitude;
-                                const image = item.image;
-                                const description = item.description;
-
-                                $('#show-info').removeClass('d-none');
-                                $('.location_name').html(`<h2> ${name}</h2>`);
-                                $('.location_address').html(
-                                    `<i class="uil-map-marker"></i> ${address}`);
-                                $('.geographic_coordinates').html(
-                                    `<i class="uil-globe"></i> ${longtitude} , ${latitude}`
-                                );
-                                $('.location_description').html(
-                                    `<i class="uil-globe"></i> ${description}`
-                                );
-                                $('.location_image').html(
-                                    ` <img src="${image}" data-fancybox="gallery" data-caption="${name}"> `
-                                );
+                                click_show_marker(item);
                             });
                             marker.setPopup(popup);
                         });
@@ -205,7 +325,6 @@
 
                     if (location) {
                         const markers = document.querySelectorAll('.mapboxgl-marker');
-
                         markers.forEach(marker => marker.remove());
                         const marker = new mapboxgl.Marker()
                             .setLngLat([location.longtitude, location.latitude])
@@ -267,12 +386,14 @@
 
                             const marker = new mapboxgl.Marker()
                                 .setLngLat([response.longtitude, response
-                                .latitude]) // Sửa `longtitude` thành `longitude`
+                                    .latitude
+                                ]) // Sửa `longtitude` thành `longitude`
                                 .addTo(map);
 
                             map.flyTo({
                                 center: [response.longtitude, response
-                                .latitude], // Sửa `longtitude` thành `longitude`
+                                    .latitude
+                                ], // Sửa `longtitude` thành `longitude`
                                 zoom: 14
                             });
 
@@ -306,6 +427,56 @@
 
         Fancybox.bind("[data-fancybox]", {
             // Your custom options
+        });
+        $(document).on('click', '#btn-order', (e) => {
+            const tourId = $(e.currentTarget).data('id'); // Hoặc dùng .attr('data-id')
+            const location_id = $(e.currentTarget).data('location');
+            $('.form-order').removeClass('d-none');
+            
+            $.ajax({
+                type: 'POST',
+                url: `{{ route('admin.tour.getDataForId') }}`,
+                dataType: 'json',
+                data: {
+                    id: tourId,location_id,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: (data) => {
+                    $('#name_tour').val(`${data[0].name_tour}`);
+                    $('#tour_id').val(`${data[0].tour_id}`);
+                    $('#name_location').val(`${data[0].name_location}`);
+                    $('#location_id').val(`${data[0].location_id}`);
+                },
+                error: (error) => {
+                    console.log('error', error);
+                }
+            });
+        });
+        $(document).on('click', '#submit-store', (e) => {
+            let formData = new FormData($('#form-order')[0]);
+
+            $.ajax({
+                type: 'POST',
+                url: `{{ route('admin.bill.store') }}`,
+                processData: false,
+                contentType: false,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+                success: (data) => {
+                    console.log('Thêm thành công',data);
+                    $('.form-order').addClass('d-none');
+                    $('#modal-create').find('form')[0].reset();
+                },
+                error: (error) => {
+                    console.log('error', error);
+                }
+            });
+        });
+
+        $(document).on('click', '#btn-close', (event) => {
+            $('.form-order').addClass('d-none');
         });
     </script>
 @endsection

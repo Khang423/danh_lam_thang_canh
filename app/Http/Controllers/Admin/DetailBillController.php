@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bill;
+use App\Models\DetailBill;
+use App\Models\DetailInvoice;
 use App\Models\Invoice;
 use App\Services\Admin\InvoiceService;
 use App\Traits\ResponseTrait;
@@ -10,7 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class InvoiceController extends Controller
+class DetailBillController extends Controller
 {
     use ResponseTrait;
     public InvoiceService $invoiceService;
@@ -21,7 +24,7 @@ class InvoiceController extends Controller
     }
     public function index()
     {
-        return view('admin.invoice');
+        return view('admin.detail-bill');
     }
 
     public function getList()
@@ -35,9 +38,7 @@ class InvoiceController extends Controller
             ->editColumn('tour_id', function ($item) {
                 return $item->booking->tour->name;
             })
-            ->editColumn('status', function ($item) {
-                return $item->status === 1 ? 'Chưa duyệt' : 'Đã duyệt ';
-            })
+           
             ->editColumn('action', function ($item) {
                 return "
                 <a
@@ -101,14 +102,18 @@ class InvoiceController extends Controller
     public function getDataForUpdate(Request $request)
     {
         $id = $request->id;
-        $data = Invoice::select(Invoice::getSelectAttribute())->where('id', $id)->get();
+        $data = DetailBill::select('tours.name','tours.price')
+        ->join('tours','bill_details.tour_id','=','tours.id')
+        ->where('bill_details.bill_id', $id)
+        ->get();
 
         return response()->json(['data' => $data]);
     }
 
     public function getDataForChart()
     {
-        $result = Invoice::select(Invoice::raw('DATE(created_at) as date'), Invoice::raw('SUM(tatol_amount) as total'))->where('status', '2')->groupBy(Invoice::raw('DATE(created_at)'))->get();
+        $result = Bill::select(Bill::raw('DATE(created_at) as date'), Bill::raw('SUM(total) as total'))
+        ->groupBy(Bill::raw('DATE(created_at)'))->get();
 
         return response()->json($result);
     }
@@ -120,13 +125,17 @@ class InvoiceController extends Controller
 
         $startDate = Carbon::createFromFormat('d/m/Y', $startDateString)->format('Y-m-d');
         $endDate = Carbon::createFromFormat('d/m/Y', $endDateString)->format('Y-m-d');
-
-        $result = Invoice::select(Invoice::raw('DATE(created_at) as date'), Invoice::raw('SUM(tatol_amount) as total'))
-            ->where('status', '2')
-            ->whereBetween('created_at', [$startDate, $endDate]) // Bọc $startDate và $endDate trong mảng
-            ->groupBy(Invoice::raw('DATE(created_at)'))
-            ->get();
-
-        return response()->json($result);
+        
+        $result2 = Bill::select('tours.name', Bill::raw('SUM(bills.total) as total'))
+            ->join('locations', 'locations.id', '=', 'bills.location_id')
+            ->join('bill_details', 'bill_details.bill_id', '=', 'bills.id')
+            ->join('tours', 'bill_details.tour_id', '=', 'tours.id')
+            ->where('bills.status', '1')
+            ->whereBetween('bills.created_at', [$startDate, $endDate])
+            ->groupBy('tours.name')
+            ->havingRaw('total > 0')
+            ->get();    
+        
+        return response()->json($result2);
     }
 }
